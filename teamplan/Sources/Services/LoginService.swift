@@ -31,7 +31,7 @@ final class LoginService {
         return try await google.login()
     }
     
-    func requestNonceSignInApple() -> String {
+    func requestRawNonceSignInApple() -> String {
         return self.apple.randomNonce()
     }
 }

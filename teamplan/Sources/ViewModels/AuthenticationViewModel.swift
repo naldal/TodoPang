@@ -33,7 +33,8 @@ final class AuthenticationViewModel: ObservableObject {
     
     @Published var nickName: String = ""
     @Published var signupUser: AuthSocialLoginResDTO?
-    @Published var nonce: String?
+    @Published var rawNonce: String?
+    @Published var hashedNonce: String?
     
     
     // MARK: - private properties
@@ -72,7 +73,7 @@ final class AuthenticationViewModel: ObservableObject {
     }
     
     func requestNonceSignInApple() {
-        self.nonce = self.loginService.requestNonceSignInApple()
+        self.rawNonce = self.loginService.requestRawNonceSignInApple()
     }
     
     func tryLogin() async -> Bool {

@@ -76,11 +76,11 @@ struct LoginView: View {
                     request in
                     self.authViewModel.requestNonceSignInApple()
                     request.requestedScopes = [.fullName, .email]
-                    request.nonce = self.authViewModel.nonce
+                    request.nonce = HashSHA256().hash(self.authViewModel.rawNonce)
                 },
                 onCompletion: { result in
                     switch result {
-                    case .success(let authResults):
+                    case .success(let authResults): // viewModel에서 처리
                         switch authResults.credential {
                         case let appleIDCredential as ASAuthorizationAppleIDCredential:
                             guard let appleIDToken = appleIDCredential.identityToken else {
@@ -91,11 +91,10 @@ struct LoginView: View {
                                 print("\(appleIDToken.debugDescription)")
                                 return
                             }
-                            
                             let credential = OAuthProvider.credential(
                                 withProviderID: "apple.com",
                                 idToken: idTokenString,
-                                rawNonce: self.authViewModel.nonce
+                                rawNonce: self.authViewModel.rawNonce
                             )
                             Auth.auth().signIn(with: credential) { (authResult, error) in
                                 if let error = error {
