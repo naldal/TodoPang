@@ -11,7 +11,7 @@ import FirebaseCore
 
 @main
 struct TeamPlanApp: App {
-    @State private var showIntroView: Bool = true
+    
     @StateObject var authViewModel = AuthenticationViewModel()
     @StateObject var termsViewModel = TermsViewModel()
   
@@ -19,7 +19,7 @@ struct TeamPlanApp: App {
     
     var body: some Scene {
         WindowGroup {
-            mainView
+            IntroView()
                 .environmentObject(authViewModel)
                 .environmentObject(termsViewModel)
                 .onAppear(perform: initializeApp)
@@ -27,22 +27,11 @@ struct TeamPlanApp: App {
         }
     }
     
-    private var mainView: some View {
-        ZStack {
-            if showIntroView {
-                SplashView(showIntroView: $showIntroView)
-                    .transition(.move(edge: .leading))
-            } else {
-                IntroView()
-            }
-        }
-    }
     
+    // MARK: - private method
     
-    // MARK: Function
     private func initializeApp() {
         configureFirebase()
-        //restorePreviousGoogleSignIn()
     }
     
     private func configureFirebase(){
@@ -59,9 +48,6 @@ struct TeamPlanApp: App {
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        
-        // Add delay at startup
-        Thread.sleep(forTimeInterval: 1.5)
         return true
     }
     

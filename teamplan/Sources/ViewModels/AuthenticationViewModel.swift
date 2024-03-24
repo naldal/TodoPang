@@ -2,14 +2,13 @@
 //  AuthenticationViewModel.swift
 //  teamplan
 //
-//  Created by 주찬혁 on 2023/07/04.
-//  Copyright © 2023 team1os. All rights reserved.
+//  Created by 송하민 on 3/24/24.
+//  Copyright © 2024 team1os. All rights reserved.
 //
+
 import Foundation
-import GoogleSignIn
 import KeychainSwift
-import Combine
-import SwiftUI
+import AuthenticationServices
 
 final class AuthenticationViewModel: ObservableObject {
     
@@ -24,45 +23,56 @@ final class AuthenticationViewModel: ObservableObject {
         case signupFailed
     }
     
-    // Parameter
+    enum loginAction: Equatable {
+        case loginGoogle
+        case loginApple
+    }
     
-    let loginService = LoginService()
-    let util = Utilities()
-    lazy var loginLoadingService = LoginLoadingService()
+    
+    // MARK: - published properties
     
     @Published var nickName: String = ""
     @Published var signupUser: AuthSocialLoginResDTO?
-
-    private var cancellables = Set<AnyCancellable>()
+    @Published var nonce: String?
     
-    let signupService = SignupService()
     
-    init(){
-        self.addSubscribers()
-    }
+    // MARK: - private properties
     
-    // Google Login
+    private let keychain = KeychainSwift()
+    private lazy var loginLoadingService = LoginLoadingService()
+    private let signupService = SignupService()
+    
+    private let loginService = LoginService(
+        authGoogleService: AuthGoogleService(),
+        authAppleService: AuthAppleService()
+    )
+    
+    
+    
+    // MARK: - method
     
     func signInGoogle() async throws -> AuthSocialLoginResDTO {
         do {
-            let user = try await loginService.loginGoole()
+            let user = try await loginService.loginGoogle()
             
-            switch user.status {
-            case .exist:
-                self.signupUser = user
-            case .new:
-                self.signupUser = user
-            }
-            let keychain = KeychainSwift()
-            keychain.set(user.idToken, forKey: "idToken")
-            keychain.set(user.accessToken, forKey: "accessToken")
+            switch user.status { // ???
+            case .exist: // ???
+                self.signupUser = user // ???
+            case .new: // ???
+                self.signupUser = user // ???
+            } // ???
+            self.keychain.set(user.idToken, forKey: "idToken")
+            self.keychain.set(user.accessToken, forKey: "accessToken")
             
             return user
             
         } catch {
-            print("[Critical]AuthViewModel - Throw: There was an unexpected error while proceed social login")
             throw error
         }
+    }
+    
+    func requestNonceSignInApple() -> String {
+        return self.loginService.requestNonceSignInApple()
     }
     
     func tryLogin() async -> Bool {
@@ -107,19 +117,5 @@ final class AuthenticationViewModel: ObservableObject {
         userDefaultManager?.userName = signedUser.nickNname
         userDefaultManager?.identifier = signedUser.userId
         return signedUser
-    }
-    
-    
-    /*
-    // Authenticate
-    //
-    func logout() async throws {
-        try firebaseAuthenticator.logout()
-        self.user = AuthenticatedUser()
-    }
-    */
-    
-    private func addSubscribers() {
-
     }
 }
