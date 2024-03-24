@@ -11,9 +11,9 @@ import Foundation
 
 final class ChallengeServicesCoredata{
     
-    //================================
+    
     // MARK: - Parameter
-    //================================
+    
     let util = Utilities()
     let cm = CoreDataManager.shared
     var context: NSManagedObjectContext {
@@ -21,14 +21,14 @@ final class ChallengeServicesCoredata{
     }
 }
 
-//================================
+
 // MARK: - Main Function
-//================================
+
 extension ChallengeServicesCoredata{
     
-    //--------------------
+    
     // Set
-    //--------------------
+    
     func setChallenges(with array: [ChallengeObject]) throws {
         // create & set entity
         for challenge in array {
@@ -37,9 +37,9 @@ extension ChallengeServicesCoredata{
         try context.save()
     }
     
-    //--------------------
+    
     // Get
-    //--------------------
+    
     // Single
     func getChallenge(with challengeId: Int, owner userId: String) throws -> ChallengeObject{
         // fetch entity
@@ -62,9 +62,9 @@ extension ChallengeServicesCoredata{
         return array
     }
     
-    //--------------------
+    
     // Update
-    //--------------------
+    
     func updateChallenge(with dto: ChallengeUpdateDTO) throws {
         // fetch entity
         let entity = try fetchEntity(with: dto.challengeId, onwer: dto.userId)
@@ -74,9 +74,9 @@ extension ChallengeServicesCoredata{
         }
     }
     
-    //--------------------
+    
     // Update
-    //--------------------
+    
     func deleteChallenges(with userId: String) throws {
         // fetch entities
         let entities = try fetchEntities(owner: userId)
@@ -87,9 +87,9 @@ extension ChallengeServicesCoredata{
         try context.save()
     }
     
-    //================================
+    
     // MARK: - Support Function
-    //================================
+    
     // Signle Entity
     private func fetchEntity(with challengeId: Int, onwer userId: String) throws -> ChallengeEntity {
         // parameter setting
@@ -120,9 +120,9 @@ extension ChallengeServicesCoredata{
     }
 }
 
-//================================
+
 // MARK: - Support Function
-//================================
+
 extension ChallengeServicesCoredata{
     
     // Set
@@ -171,9 +171,9 @@ extension ChallengeServicesCoredata{
     }
 }
 
-//===============================
+
 // MARK: - Exception
-//===============================
+
 enum ChallengeErrorCD: LocalizedError {
     case UnexpectedConvertError
     case ChallengeRetrievalByIdentifierFailed

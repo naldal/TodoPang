@@ -8,15 +8,15 @@
 
 import Foundation
 
-//===============================
+
 // MARK: - Global Parameter
-//===============================
+
 let challengeCount: Int = 36
 let conversionRate: Int = 1
 
-//===============================
+
 // MARK: - Local Parameter
-//===============================
+
 final class ChallengeManager{
     let challengeCD = ChallengeServicesCoredata()
     let challengeFS = ChallengeServicesFirestore()
@@ -24,21 +24,21 @@ final class ChallengeManager{
     var challengeArray: [ChallengeObject] = []
     
 }
-//===============================
+
 // MARK: Main Function
-//===============================
+
 extension ChallengeManager{
     
-    //--------------------
+    
     // Get Array: FS
-    //--------------------
+    
     func getChallengesFromServer() async throws {
         challengeArray = try await challengeFS.getChallenges()
     }
     
-    //--------------------
+    
     // Get Object
-    //--------------------
+    
     func getChallenges() throws -> [ChallengeObject]{
         if challengeArray == [] {
             throw ChallengeErrorFS.InternalError
@@ -47,23 +47,23 @@ extension ChallengeManager{
         }
     }
     
-    //--------------------
+    
     // Set: CD
-    //--------------------
+    
     func setChallenge() throws {
         try challengeCD.setChallenges(with: challengeArray)
     }
     
-    //--------------------
+    
     // Delete: CD
-    //--------------------
+    
     func delChallenge(with userId: String) throws {
         try challengeCD.deleteChallenges(with: userId)
     }
     
-    //--------------------
+    
     // Config Object
-    //--------------------
+    
     func configChallenge(with userId: String) {
         
         // Unlock Step1 Challenge & assign UserId

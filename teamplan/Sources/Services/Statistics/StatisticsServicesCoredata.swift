@@ -11,9 +11,9 @@ import CoreData
 
 final class StatisticsServicesCoredata{
     
-    //================================
+    
     // MARK: - Parameter
-    //================================
+    
     let util = Utilities()
     let cm = CoreDataManager.shared
     var context: NSManagedObjectContext {
@@ -21,14 +21,14 @@ final class StatisticsServicesCoredata{
     }
 }
 
-//================================
+
 // MARK: - Main Function
-//================================
+
 extension StatisticsServicesCoredata{
     
-    //--------------------
+    
     // Set
-    //--------------------
+    
     func setStatistics(with object: StatisticsObject) throws {
         // Create Entity
         try createStatEntity(with: object)
@@ -36,9 +36,9 @@ extension StatisticsServicesCoredata{
         try context.save()
     }
     
-    //--------------------
+    
     // Get
-    //--------------------
+    
     // Object
     func getStatisticsForObject(with userId: String) throws -> StatisticsObject {
         // Fetch Data
@@ -59,9 +59,9 @@ extension StatisticsServicesCoredata{
         return try convertToDTO(entity: entity, userId: userId, challengeStep: data.chlgStep, myChallenge: data.myChlg, type: type)
     }
     
-    //--------------------
+    
     // Update
-    //--------------------
+    
     func updateStatistics(with dto: StatUpdateDTO) throws {
         // Fetch Entity
         let entity = try fetchEntity(with: dto.userId)
@@ -71,9 +71,9 @@ extension StatisticsServicesCoredata{
         }
     }
 
-    //--------------------
+    
     // Delete
-    //--------------------
+    
     func deleteStatistics(with userId: String) throws {
         // Fetch Entity
         let entity = try fetchEntity(with: userId)
@@ -83,9 +83,9 @@ extension StatisticsServicesCoredata{
     }
 }
 
-//================================
+
 // MARK: - Support Function
-//================================
+
 extension StatisticsServicesCoredata{
 
     // Set Entity
@@ -110,7 +110,7 @@ extension StatisticsServicesCoredata{
         entity.stat_log_head = logHeadString
         entity.stat_upload_at = object.stat_upload_at
     }
-    //----------------------------------------------
+    
     
     // Fetch Entity
     private func fetchEntity(with userId: String) throws -> StatisticsEntity {
@@ -127,7 +127,7 @@ extension StatisticsServicesCoredata{
         }
         return entity
     }
-    //----------------------------------------------
+    
     
     // Convert: to Data
     private func convertToData(with entity: StatisticsEntity) throws ->
@@ -175,7 +175,7 @@ extension StatisticsServicesCoredata{
                 with: userId, entity: entity, chlgStep: challengeStep, mychlg: myChallenge)
         }
     }
-    //----------------------------------------------
+    
     
     // Update Check
     private func checkUpdate(with entity: StatisticsEntity, to dto: StatUpdateDTO) throws -> Bool {
@@ -224,9 +224,9 @@ extension StatisticsServicesCoredata{
     }
 }
 
-//===============================
+
 // MARK: - Exception
-//===============================
+
 enum StatErrorCD: LocalizedError {
     case UnexpectedSearchError
     case UnexpectedConvertError

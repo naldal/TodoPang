@@ -8,14 +8,14 @@
 
 import Foundation
 
-//============================
+
 // MARK: Entity
-//============================
+
 struct ProjectLog{
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let userId: String
     let projectId: Int
     
@@ -29,9 +29,9 @@ struct ProjectLog{
     var deadline: [Date]
     var finishAt: Date
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // ProjectIndex
     init(with dto: ProjectSetDTO, id projectId: Int, by userId: String, at registDate: Date){
         self.userId = userId
@@ -110,9 +110,9 @@ struct ProjectLog{
         self.finishAt = finishAt
     }
     
-    //--------------------
+    
     // function
-    //--------------------
+    
     func toDictionary() -> [String: Any] {
         let extendInfoString = extendInfo
             .mapKeys { String($0) }
@@ -134,14 +134,14 @@ struct ProjectLog{
     }
 }
 
-//============================
+
 // MARK: DTO
-//============================
+
 struct ProjectLogUpdateDTO{
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let userId: String
     let projectId: Int
     
@@ -153,9 +153,9 @@ struct ProjectLogUpdateDTO{
     var newDeadline: Date?
     var newFinishAt: Date?
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     init(userId: String, projectId: Int,
          title: String? = nil,
          status: ProjectStatus? = nil,
@@ -177,9 +177,9 @@ struct ProjectLogUpdateDTO{
     }
 }
 
-//============================
+
 // MARK: Enum
-//============================
+
 enum ProjectStatus: String{
     case ongoing = "Ongoing Project"
     case finish = "Finished Project"

@@ -15,9 +15,8 @@ struct TeamPlanApp: App {
     @StateObject var authViewModel = AuthenticationViewModel()
     @StateObject var termsViewModel = TermsViewModel()
   
-    //====================
     // MARK: Main
-    //====================
+    
     var body: some Scene {
         WindowGroup {
             mainView
@@ -40,9 +39,7 @@ struct TeamPlanApp: App {
     }
     
     
-    //====================
     // MARK: Function
-    //====================
     private func initializeApp() {
         configureFirebase()
         //restorePreviousGoogleSignIn()
@@ -58,9 +55,8 @@ struct TeamPlanApp: App {
 }
 
 
-//====================
 // MARK: App Delegate
-//====================
+
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         

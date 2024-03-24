@@ -10,9 +10,9 @@ import Foundation
 
 final class SyncServerToLocal {
     
-    //================================
+    
     // MARK: - Parameter
-    //================================
+    
     // for service
     private let userFS = UserServicesFirestore()
     private let userCD = UserServicesCoredata()
@@ -36,9 +36,9 @@ final class SyncServerToLocal {
     private let util = Utilities()
     private let location = "SyncServerToLocal"
     
-    //===============================
+    
     // MARK: - Initialize
-    //===============================
+    
     init() {
         self.userId = "unknown"
         self.previousStatUploadAt = Date()
@@ -55,9 +55,9 @@ final class SyncServerToLocal {
     }
 }
 
-//===============================
+
 // MARK: - Executor
-//===============================
+
 extension SyncServerToLocal{
     
     func syncExecutor(with syncDate: Date) async throws {
@@ -90,9 +90,9 @@ extension SyncServerToLocal{
     }
 }
 
-//===============================
+
 // MARK: - Element
-//===============================
+
 extension SyncServerToLocal{
 
     private func syncStatistics(at syncDate: Date) async throws {
@@ -132,9 +132,9 @@ extension SyncServerToLocal{
     }
 }
 
-//===============================
+
 // MARK: - SP1: Fetch Local Data
-//===============================
+
 extension SyncServerToLocal{
     
     // Statistics
@@ -163,9 +163,9 @@ extension SyncServerToLocal{
     // Project Log (WIP)
 }
 
-//===============================
+
 // MARK: - SP2: Update Local UploadAt
-//===============================
+
 extension SyncServerToLocal{
     
     // Statistics
@@ -203,9 +203,9 @@ extension SyncServerToLocal{
     // Project Log (WIP)
 }
 
-//===============================
+
 // MARK: - SP3: Update Server
-//===============================
+
 extension SyncServerToLocal{
     
     // Statistics

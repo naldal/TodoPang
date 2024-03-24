@@ -10,9 +10,9 @@ import Foundation
 
 struct TodoObject{
     
-    //--------------------
+    
     // Content
-    //--------------------
+    
     // id
     let todo_id: Int
     
@@ -28,9 +28,9 @@ struct TodoObject{
     let todo_changed_at: Date
     let todo_updated_at: Date
     
-    //--------------------
+    
     // Constructor
-    //--------------------
+    
     init?(with entity: TodoEntity){
         guard let todo_desc = entity.todo_desc,
               let todo_registed_at = entity.todo_registed_at,

@@ -10,31 +10,31 @@ import Foundation
 
 final class ProjectDetailService{
     
-    //===============================
+    
     // MARK: - Parameter
-    //===============================
+    
     let projectCD = ProjectServicesCoredata()
     let projectLogCD = ProjectLogServicesCoredata()
     let todoCD = TodoServiceCoredata()
     let statCD = StatisticsServicesCoredata()
     let util = Utilities()
     
-    //--------------------
+    
     // Service Use Only
-    //--------------------
+    
     let projectId: Int
     let userId: String
     var statDTO: StatTodoDTO
     var todoList: [TodoObject] = []
     
-    //--------------------
+    
     // For ViewModel
-    //--------------------
+    
     @Published var projectDetail: ProjectDetailDTO
     
-    //===============================
+    
     // MARK: - Initialize
-    //===============================
+    
     init(userId: String, projectId: Int){
         self.userId = userId
         self.projectId = projectId
@@ -65,14 +65,14 @@ final class ProjectDetailService{
     }
 }
 
-//===============================
+
 // MARK: Main Function
-//===============================
+
 extension ProjectDetailService{
     
-    //--------------------
+    
     // Set
-    //--------------------
+    
     func setTodo(with dto: TodoSetDTO) throws {
         // Nil Check
         try isProjectDetailEmpty()
@@ -84,9 +84,9 @@ extension ProjectDetailService{
         try setCleanupFunction()
     }
     
-    //--------------------
+    
     // Get
-    //--------------------
+    
     func getTodoList() throws -> [TodoListDTO] {
         // Check & Sort Array
         sortTodoList()
@@ -95,9 +95,9 @@ extension ProjectDetailService{
         return todoList.map{ TodoListDTO(with: $0) }
     }
     
-    //--------------------
+    
     // Update
-    //--------------------
+    
     // Desc
     func updateTodoDesc(todoId: Int, newDesc: String) throws {
         // Update Todo Description
@@ -117,9 +117,9 @@ extension ProjectDetailService{
     }
     
     //TODO: Project Log Update
-    //--------------------
+    
     // Complete
-    //--------------------
+    
     func completeProject() throws {
         // Status Check
         if projectDetail.complete == false {
@@ -143,10 +143,10 @@ extension ProjectDetailService{
     }
 }
 
-//===============================
+
 // MARK: Support Function:
 // * Components
-//===============================
+
 extension ProjectDetailService{
     
     // Set: Core
@@ -199,10 +199,10 @@ extension ProjectDetailService{
 
 
 
-//===============================
+
 // MARK: Support Function:
 // * ProjectDetail
-//===============================
+
 extension ProjectDetailService{
     
     // Check: Nil
@@ -251,10 +251,10 @@ extension ProjectDetailService{
     }
 }
 
-//===============================
+
 // MARK: Support Function:
 // * Statistics
-//===============================
+
 extension ProjectDetailService{
     
     // Update: Todo Registed
@@ -272,10 +272,10 @@ extension ProjectDetailService{
     }
 }
 
-//===============================
+
 // MARK: Support Function:
 // * Utilities & Etc
-//===============================
+
 extension ProjectDetailService{
     
     // Fetch List
@@ -316,9 +316,9 @@ extension ProjectDetailService{
 
 
 
-//===============================
+
 // MARK: - Exception
-//===============================
+
 enum ProjectDetailError: LocalizedError {
     case UnexpectedFetchError
     case UnexpectedConvertError

@@ -10,9 +10,9 @@ import Foundation
 
 final class Utilities {
     
-    //============================
+    
     // MARK: Account Helper
-    //============================
+    
     // Identifier
     func getIdentifier(from authRes: AuthSocialLoginResDTO) throws -> String {
         
@@ -29,9 +29,9 @@ final class Utilities {
         return (String(userEmail.prefix(upTo: atIndex)))
     }
 
-    //============================
+    
     // MARK: Time Helper
-    //============================
+    
     // Compare
     func compareTime(currentTime: Date, lastTime: Date) -> Bool {
         
@@ -58,9 +58,9 @@ final class Utilities {
         return period
     }
     
-    //============================
+    
     // MARK: Update Helper
-    //============================
+    
     // Check
     func updateFieldIfNeeded<T: Equatable>(_ currentValue: inout T, newValue: T) -> Bool {
         if currentValue != newValue {
@@ -70,9 +70,9 @@ final class Utilities {
         return false
     }
     
-    //============================
+    
     // MARK: JSON Converter
-    //============================
+    
     // Data to JSON
     func convertToJSON<T: Codable>(data: T) throws -> String {
         do {
@@ -106,9 +106,9 @@ final class Utilities {
     }
 }
 
-//============================
+
 // MARK: Extension
-//============================
+
 // Dictionary
 extension Dictionary {
     func mapKeys<T: Hashable>(transform: (Key) -> T) -> [T: Value] {
@@ -139,9 +139,9 @@ extension DateFormatter {
     }()
 }
 
-//================================
+
 // MARK: - Exception
-//================================
+
 extension Utilities{
     func log(_ level: LogLevel, _ service: String, _ message: String, _ userId: String) {
         print("[\(level.rawValue)]\(service) - \(userId): \(message)")
@@ -154,9 +154,9 @@ enum LogLevel: String {
     case critical = "Critical"
 }
 
-//================================
+
 // MARK: - Exception
-//================================
+
 enum UtilError: LocalizedError {
     case InvalidEmailFormat
     case InvalidJsonStringFormat

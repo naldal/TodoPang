@@ -10,9 +10,9 @@ import Foundation
 
 final class ProjectIndexService{
     
-    //--------------------
+    
     // Parameter
-    //--------------------
+    
     let projectCD = ProjectServicesCoredata()
     let projectLogCD = ProjectLogServicesCoredata()
     let statCD = StatisticsServicesCoredata()
@@ -23,9 +23,9 @@ final class ProjectIndexService{
     
     var statDTO = StatProjectDTO()
     
-    //--------------------
+    
     // Initialize
-    //--------------------
+    
     init(with userId: String){
         self.userId = userId
         self.statCenter = StatisticsCenter(with: userId)
@@ -36,15 +36,15 @@ final class ProjectIndexService{
     }
 }
 
-//===============================
+
 // MARK: Main Function
 // * CRUD
-//===============================
+
 extension ProjectIndexService{
 
-    //--------------------
+    
     // Set
-    //--------------------
+    
     func setProject(with inputData: ProjectSetDTO) throws {
         
         // Add New Project
@@ -53,9 +53,9 @@ extension ProjectIndexService{
         try setCleanupFunction(with: newProjectRegist)
     }
     
-    //--------------------
+    
     // Get
-    //--------------------
+    
     // User Statistics
     func getStatistics() throws -> userStatProjectDTO {
         // Ready for struct DTO
@@ -75,9 +75,9 @@ extension ProjectIndexService{
         return sortedArray
     }
     
-    //--------------------
+    
     // Update
-    //--------------------
+    
     func updateProjectDeadline(with projectid: Int, newDeadline: Date, needDrop: Int) throws {
         // Update Statitstics
         try updateCleanupFunction(with: needDrop)
@@ -85,23 +85,23 @@ extension ProjectIndexService{
         try updateCoreFunction(with: newDeadline, and: needDrop, id: projectid)
     }
     
-    //--------------------
+    
     // Delete
-    //--------------------
+    
     func deleteProject(with projectId: Int) throws {
         try projectCD.deleteProject(with: projectId, and: userId)
     }
 }
 
-//===============================
+
 // MARK: Main Function
 // * Calculation
-//===============================
+
 extension ProjectIndexService{
     
-    //--------------------
+    
     // Date
-    //--------------------
+    
     private func calcDate(with projectId: Int, and drop: Int) throws -> Date {
         // Drop Limit Check
         if drop > statDTO.waterDrop {
@@ -118,9 +118,9 @@ extension ProjectIndexService{
         return updatedDate
     }
     
-    //--------------------
+    
     // WaterDrop
-    //--------------------
+    
     private func calcDrop(with projectId: Int, and newDate: Date) throws -> Int {
         // Get Extra Project Information
         let target = try projectCD.getProject(from: projectId, and: userId)
@@ -139,10 +139,10 @@ extension ProjectIndexService{
     }
 }
 
-//===============================
+
 // MARK: Support Function
 // * Components
-//===============================
+
 extension ProjectIndexService{
     
     // Set: Core
@@ -191,10 +191,10 @@ extension ProjectIndexService{
 }
 
 
-//===============================
+
 // MARK: Support Function
 // * Etc
-//===============================
+
 extension ProjectIndexService{
     
     // Update: Project Registed
@@ -207,9 +207,9 @@ extension ProjectIndexService{
     }
 }
 
-//===============================
+
 // MARK: - Exception
-//===============================
+
 enum ProjectIndexError: LocalizedError {
     case UnexpectedUpdateError
     case ExceedLimitWaterDrop

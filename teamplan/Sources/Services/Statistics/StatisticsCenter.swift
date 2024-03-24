@@ -10,18 +10,18 @@ import Foundation
 
 final class StatisticsCenter{
     
-    //================================
+    
     // MARK: - Parameter
-    //================================
+    
     let statCD = StatisticsServicesCoredata()
 
     let userId: String
     
     var statDTO: StatCenterDTO
     
-    //===============================
+    
     // MARK: - Constructor
-    //===============================
+    
     init(with userId: String){
         self.userId = userId
         self.statDTO = StatCenterDTO()
@@ -34,9 +34,9 @@ final class StatisticsCenter{
         self.statDTO = dto
     }
     
-    //================================
+    
     // MARK: Function
-    //================================
+    
     func getUserProgress(type: ChallengeType) -> Int {
         switch type {
         case .onboarding:
@@ -57,9 +57,9 @@ final class StatisticsCenter{
     }
 }
 
-//===============================
+
 // MARK: - Exception
-//===============================
+
 enum StatCenterError: LocalizedError {
     case UnexpectedGetError
     

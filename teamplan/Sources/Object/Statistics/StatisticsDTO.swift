@@ -8,23 +8,23 @@
 
 import Foundation
 
-//================================
+
 // MARK: - LoginLoading
-//================================
+
 struct StatLoginDTO {
 
-    //--------------------
+    
     // content
-    //--------------------
+    
     let type: DTOType = .login
     let userId: String
     
     var term: Int
     var todoLimit: Int
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // Default
     init(){
         self.userId = ""
@@ -38,9 +38,9 @@ struct StatLoginDTO {
         self.todoLimit = Int(entity.stat_todo_limit)
     }
     
-    //--------------------
+    
     // function
-    //--------------------
+    
     mutating func updateServiceTerm(with newTerm: Int){
         self.term = newTerm
     }
@@ -49,21 +49,21 @@ struct StatLoginDTO {
     }
 }
 
-//================================
+
 // MARK: - Home
-//================================
+
 struct StatHomeDTO{
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let type: DTOType = .home
     let userId: String
     let waterDrop: Int
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // Default
     init() {
         self.userId = ""
@@ -76,14 +76,14 @@ struct StatHomeDTO{
     }
 }
 
-//================================
+
 // MARK: - Challenge
-//================================
+
 struct StatChallengeDTO {
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let type: DTOType = .challenge
     let userId: String
     
@@ -91,9 +91,9 @@ struct StatChallengeDTO {
     var challengeStep: [Int : Int]
     var myChallenge: [Int]
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // Default
     init(){
         self.userId = ""
@@ -109,9 +109,9 @@ struct StatChallengeDTO {
         self.myChallenge = mychlg
     }
     
-    //--------------------
+    
     // function
-    //--------------------
+    
     mutating func updateDrop(with newDrop: Int){
         self.drop = newDrop
     }
@@ -123,14 +123,14 @@ struct StatChallengeDTO {
     }
 }
 
-//================================
+
 // MARK: - StatCenter
-//================================
+
 struct StatCenterDTO {
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let type: DTOType = .center
     let stat_user_id: String
     
@@ -145,9 +145,9 @@ struct StatCenterDTO {
 
     let stat_chlg_step: [Int : Int]
     let stat_mychlg: [Int]
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // Default
     init(){
         self.stat_user_id = ""
@@ -176,15 +176,15 @@ struct StatCenterDTO {
     }
 }
 
-//================================
+
 // MARK: - Project
-//================================
+
 /// PageService <=> StorageService DTO
 struct StatProjectDTO {
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let type: DTOType = .project
     let userId: String
     
@@ -195,9 +195,9 @@ struct StatProjectDTO {
     var projectExtended: Int
     var todoRegisted: Int
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // Default
     init(){
         self.userId = ""
@@ -219,9 +219,9 @@ struct StatProjectDTO {
         self.todoRegisted = Int(entity.stat_todo_reg)
     }
     
-    //--------------------
+    
     // function
-    //--------------------
+    
     mutating func updateWaterDrop(to newVal: Int){
         self.waterDrop = newVal
     }
@@ -242,21 +242,21 @@ struct StatProjectDTO {
     }
 }
 
-//================================
+
 // MARK: - Project for ViewModel
-//================================
+
 struct userStatProjectDTO{
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let registProject: Int
     let completeProject: Int
     let waterDrop: Int
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // ProjectIndexService
     init(with dto: StatProjectDTO, and count: Int){
         self.registProject = count
@@ -265,22 +265,22 @@ struct userStatProjectDTO{
     }
 }
 
-//================================
+
 // MARK: - Todo
-//================================
+
 struct StatTodoDTO {
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let userId: String
     var todoRegist: Int
     var todoLimit: Int
     var projectFinish: Int
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // Default
     init(){
         self.userId = ""
@@ -296,9 +296,9 @@ struct StatTodoDTO {
         self.projectFinish = Int(entity.stat_proj_fin)
     }
     
-    //--------------------
+    
     // function
-    //--------------------
+    
     mutating func updateTodoRegist(with newVal: Int){
         self.todoRegist = newVal
     }
@@ -310,14 +310,14 @@ struct StatTodoDTO {
     }
 }
 
-//================================
+
 // MARK: - Update
-//================================
+
 struct StatUpdateDTO {
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let userId: String
     var newDrop: Int?
     var newTerm: Int?
@@ -332,9 +332,9 @@ struct StatUpdateDTO {
     var newTodoLimit: Int?
     var newUploadAt: Date?
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     init(userId: String,
          newDrop: Int? = nil,
          newTerm: Int? = nil,
@@ -365,9 +365,9 @@ struct StatUpdateDTO {
     }
 }
 
-//================================
+
 // MARK: - Type
-//================================
+
 enum DTOType {
     case login
     case home

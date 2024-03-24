@@ -8,14 +8,14 @@
 
 import Foundation
 
-//============================
+
 // MARK: Entity
-//============================
+
 public struct ChallengeObject: Hashable {
 
-    //--------------------
+    
     // content
-    //--------------------
+    
     var chlg_id: Int
     var chlg_user_id: String
     
@@ -32,9 +32,9 @@ public struct ChallengeObject: Hashable {
     let chlg_unselected_at: Date
     let chlg_finished_at: Date
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // Coredata
     init?(chlgEntity: ChallengeEntity) {
         guard let chlg_user_id = chlgEntity.chlg_user_id,
@@ -93,9 +93,9 @@ public struct ChallengeObject: Hashable {
         self.chlg_finished_at = Date()
     }
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     mutating func updateLock(with newVal: Bool){
         self.chlg_lock = newVal
     }
@@ -104,9 +104,9 @@ public struct ChallengeObject: Hashable {
     }
 }
 
-//============================
+
 // MARK: Type
-//============================
+
 enum ChallengeType: Int{
     case onboarding = 0
     case serviceTerm = 1

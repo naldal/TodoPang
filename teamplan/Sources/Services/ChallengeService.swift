@@ -10,9 +10,9 @@ import Foundation
 
 final class ChallengeService {
     
-    //===============================
+    
     // MARK: - Properties
-    //===============================
+    
     // for service
     private let challengeCD = ChallengeServicesCoredata()
     private let challengeLogCD = ChallengeLogServicesCoredata()
@@ -30,9 +30,9 @@ final class ChallengeService {
     @Published var statDTO: StatChallengeDTO
     @Published var challengeArray: [ChallengeObject] = []
     
-    //===============================
+    
     // MARK: - Initializer
-    //===============================
+    
     /// `ChallengeService` 클래스의 인스턴스를 초기화합니다.
     ///
     /// 이 초기화 과정에서는 다음과 같은 작업이 수행됩니다:
@@ -65,9 +65,9 @@ final class ChallengeService {
         util.log(.info, location, "Successfully ready service", userId)
     }
     
-    //--------------------
+    
     // Private Helper
-    //--------------------
+    
     // statistics
     private func readyStatistics() throws {
         guard let dto = try statCD.getStatisticsForDTO(with: userId, type: .challenge) as? StatChallengeDTO else {
@@ -87,14 +87,14 @@ final class ChallengeService {
     }
 }
 
-//===============================
+
 // MARK: MyChallenge: Main
-//===============================
+
 extension ChallengeService {
     
-    //--------------------
+    
     // Get
-    //--------------------
+    
     /// 사용자의 '나의 도전과제' 목록을 반환합니다.
     /// - Returns:사용자의 챌린지 목록을 `MyChallengeDTO` 배열로 반환합니다.
     /// - 단, '나의 도전과제'를 지정하지 않은경우 '[]' 형태로 반환됩니다.
@@ -102,9 +102,9 @@ extension ChallengeService {
         return self.myChallenges
     }
     
-    //--------------------
+    
     // Set
-    //--------------------
+    
     /// 특정 도전과제를 '나의 도전과제'로 등록합니다.
     /// - Parameter challengeId: '나의 도전과제'에 등록할 도전과제의 ID입니다.
     /// - Throws: 중복 도전과제, 최대 도전과제 수 초과 등으로 인한 오류를 던집니다.
@@ -138,9 +138,9 @@ extension ChallengeService {
         util.log(.info, location, "MyChallenge duplication detected", userId)
     }
     
-    //-------------------------------
+    
     // Disable
-    //-------------------------------
+    
     /// '나의 도전과제'로 등록된 특정 도전과제를 해제합니다.
     /// - Parameter challengeId: '나의 도전과제'에서 해제할 도전과제의 ID입니다.
     /// - Throws: 도전과제 해제 및 상태 업데이트에서 발생한 오류들을 던집니다.
@@ -166,9 +166,9 @@ extension ChallengeService {
         util.log(.info, location, "Disable MyChallenge - Complete", userId)
     }
 
-    //-------------------------------
+    
     // Reward
-    //-------------------------------
+    
     /// 완료한 도전과제에 대한 보상을 처리합니다.
     /// - Parameter challengeId: 보상을 받을 도전과제의 ID입니다.
     /// - Returns: 챌린지 완료에 따른 보상 정보를 `ChallengeRewardDTO`형태로 반환합니다.
@@ -202,14 +202,14 @@ extension ChallengeService {
     }
 }
 
-//===============================
+
 // MARK: Challenge: Main
-//===============================
+
 extension ChallengeService {
     
-    //-------------------------------
+    
     // Get challenge index
-    //-------------------------------
+    
     /// 전체 도전과제 목록 정보를 제공합니다.
     /// - Returns: 도전과제 목록관련 정보들이 담긴 `ChallengeDTO` 타입의 배열을 반환합니다.
     /// - 이 함수는 도전과제 화면에서 도전과제 목록를 표시할 때 사용됩니다.
@@ -218,9 +218,9 @@ extension ChallengeService {
         return challengeArray.map { ChallengeDTO(forIndex: $0) }
     }
      
-    //-------------------------------
+    
     // Get challenge detail
-    //-------------------------------
+    
     /// 특정 도전과제의 상세 정보를 제공합니다.
     /// - Parameter challengeId: 상세 정보를 조회할 도전과제 ID입니다.₩택했을 때, 해당 도전과제의 상세 정보를 표시하기 위해 사용됩니다.
     /// - 만약 해당 챌린지가 잠겨 있으면(`chlg_lock`), 이전 챌린지 정보도 함께 조회하여 반환합니다.
@@ -242,14 +242,14 @@ extension ChallengeService {
     }
 }
 
-//===============================
+
 // MARK: MyChallenge: Element
-//===============================
+
 extension ChallengeService {
     
-    //-------------------------------
+    
     // Set core function
-    //-------------------------------
+    
     /// 요청받은 도전과제를 '나의 도전과제' 에 추가하는 핵심기능 함수입니다.
     /// - Parameter challengeId: 추가할 도전과제의 ID입니다.
     /// - Throws: 도전과제 조회 실패할 경우 발생하는 오류를 던집니다.
@@ -267,9 +267,9 @@ extension ChallengeService {
         statDTO.myChallenge.append(challengeId)
     }
     
-    //-------------------------------
+    
     // Disable core fuction
-    //-------------------------------
+    
     /// 요청받은 도전과제를 '나의 도전과제' 목록에서 제거하는 핵심기능 함수입니다.
     /// - Parameter challengeId: 제거할 도전과제의 ID입니다.
     /// - 이 함수는 입력받은 ID를 기반으로 '나의 챌린지' 목록에서 해당 도전과제를 탐색하고 제거합니다.
@@ -278,9 +278,9 @@ extension ChallengeService {
         statDTO.myChallenge.removeAll { $0 == challengeId }
     }
     
-    //-------------------------------
+    
     // Reward core fuction
-    //-------------------------------
+    
     /// 요청받은 도전과제에 대한 보상을 처리하고 다음 도전과제를 잠금 해제합니다.
     /// - Parameter challengeId: 보상을 받을 도전과제의 ID입니다.
     /// - Returns: 보상 정보를 포함하는 `ChallengeRewardDTO` 객체를 반환합니다.
@@ -315,14 +315,14 @@ extension ChallengeService {
     }
 }
 
-//===============================
+
 // MARK: Support
-//===============================
+
 extension ChallengeService {
     
-    //-------------------------------
+    
     // Fetch challenge object
-    //-------------------------------
+    
     private func fetchChallenge(with challengeId: Int) throws -> ChallengeObject {
         guard let challenge = challengeArray.first(where: { $0.chlg_id == challengeId }) else {
             throw ChallengeError.UnexpectedChallengeArrayError
@@ -339,9 +339,9 @@ extension ChallengeService {
         }
     }
     
-    //-------------------------------
+    
     // Check myChallenge array
-    //-------------------------------
+    
     private func checkMyChallengeArray(with challengeId: Int) throws -> Bool {
         // check: size
         guard myChallenges.count < 3 else {
@@ -355,9 +355,9 @@ extension ChallengeService {
         }
     }
     
-    //-------------------------------
+    
     // Update challenge object
-    //-------------------------------
+    
     private func updateChallengeObject(with challengeId: Int, type: FunctionType) throws {
         let updatedDate = Date()
         
@@ -403,9 +403,9 @@ extension ChallengeService {
         challengeArray = try challengeCD.getChallenges(onwer: userId)
     }
     
-    //-------------------------------
+    
     // Update statistics object
-    //-------------------------------
+    
     private func updateStatObject(type: FunctionType) throws {
         
         // update: local storage
@@ -431,9 +431,9 @@ extension ChallengeService {
         self.statDTO = dto
     }
     
-    //-------------------------------
+    
     // Get previous challenge
-    //-------------------------------
+    
     func getPrevChallenge(challengeType: ChallengeType, currentStep: Int) throws -> ChallengeObject? {
         if currentStep <= 1 {
             return nil
@@ -446,9 +446,9 @@ extension ChallengeService {
         }
     }
     
-    //-------------------------------
+    
     // Data inspection
-    //-------------------------------
+    
     // mychallenge
     private func myChallengeDataInspection() {
         util.log(.info, location, "Initialize myChallenge data inspection", userId)
@@ -503,9 +503,9 @@ extension ChallengeService {
     }
 }
 
-//===============================
+
 // MARK: - Exception
-//===============================
+
 enum ChallengeError: LocalizedError {
     case UnexpectedGetStatDTOError
     case UnexpectedChallengeArrayError
@@ -538,9 +538,9 @@ enum ChallengeError: LocalizedError {
     }
 }
 
-//===============================
+
 // MARK: - Enum
-//===============================
+
 enum FunctionType {
     case set
     case disable

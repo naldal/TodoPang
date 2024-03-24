@@ -9,22 +9,22 @@
 import Foundation
 
 let challengeLogId = 1
-//============================
+
 // MARK: Entity
-//============================
+
 struct ChallengeLog{
 
-    //--------------------
+    
     // content
-    //--------------------
+    
     let log_id: Int
     let log_user_id: String
     var log_complete: [Int : Date]
     var log_upload_at: Date
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // Default
     init(){
         self.log_id = 0
@@ -75,9 +75,9 @@ struct ChallengeLog{
         self.log_upload_at = log_upload_at
     }
     
-    //--------------------
+    
     // function
-    //--------------------
+    
     mutating func updateUploadAt(with newDate: Date){
         self.log_upload_at = newDate
     }
@@ -97,14 +97,14 @@ struct ChallengeLog{
     }
 }
 
-//============================
+
 // MARK: DTO
-//============================
+
 struct ChallengeLogUpdateDTO{
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let userId: String
     let logId: Int
     
@@ -112,9 +112,9 @@ struct ChallengeLogUpdateDTO{
     var updatedAt: Date?
     var uploadAt: Date?
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     init(userId: String, logId: Int,
          challengeId: Int? = nil,
          updatedAt: Date? = nil,

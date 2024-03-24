@@ -12,9 +12,9 @@ final class SignupService{
     
     let util = Utilities()
     
-    //===============================
+    
     // MARK: - Get AccountInfo
-    //===============================
+    
     func getAccountInfo(newUser: AuthSocialLoginResDTO) throws -> UserSignupDTO {
         
         return UserSignupDTO(with: try util.getIdentifier(from: newUser), and: newUser)

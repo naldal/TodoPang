@@ -10,28 +10,28 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-//================================
+
 // MARK: - Main Function
-//================================
+
 final class ProjectLogServicesFirestore{
     
-    //--------------------
+    
     // Parameter
-    //--------------------
+    
     let fs = Firestore.firestore()
     
-    //--------------------
+    
     // Set
-    //--------------------
+    
     func setLog(with log: ProjectLog) async throws {
         // Search & Set
         let collection = fetchCollection()
         try await collection.addDocument(data: log.toDictionary())
     }
     
-    //--------------------
+    
     // Get
-    //--------------------
+    
     // Single
     func getLog(with projectId: Int, by userId: String) async throws -> ProjectLog {
         // Fetch Document
@@ -49,9 +49,9 @@ final class ProjectLogServicesFirestore{
         
     }
     
-    //--------------------
+    
     // Update
-    //--------------------
+    
     func updateLog(with updated: ProjectLog) async throws {
         // Fetch Document
         let docs = try await fetchDocument(with: updated.projectId, by: updated.userId)
@@ -59,9 +59,9 @@ final class ProjectLogServicesFirestore{
         try await docs.reference.updateData(updated.toDictionary())
     }
     
-    //--------------------
+    
     // Delete
-    //--------------------
+    
     func deleteLog(with projectId: Int, by userId: String) async throws {
         // Fetch Document
         let docs = try await fetchDocument(with: projectId, by: userId)
@@ -71,9 +71,9 @@ final class ProjectLogServicesFirestore{
     
 }
 
-//================================
+
 // MARK: - Support Function
-//================================
+
 extension ProjectLogServicesFirestore{
     
     // fetch collection
@@ -114,9 +114,9 @@ extension ProjectLogServicesFirestore{
     }
 }
 
-//================================
+
 // MARK: - Exception
-//================================
+
 enum ProjectLogErrorFS: LocalizedError {
     case UnexpectedFetchError
     case UnexpectedConvertError

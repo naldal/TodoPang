@@ -9,14 +9,15 @@
 import Foundation
 import CryptoKit
 
-final class AppleLoginSupport{
+final class AppleLoginSupport {
     
     static let shared = AppleLoginSupport()
-    private init(){}
     
-    //===============================
+    private init() {}
+    
+    
     // MARK: - Nonce RandomGenerator
-    //===============================
+    
     func randomNonceString(length: Int = 32) -> String {
         precondition(length > 0)
         var randomBytes = [UInt8](repeating: 0, count: length)
@@ -32,9 +33,9 @@ final class AppleLoginSupport{
         return String(nonce)
     }
 
-    //===============================
-    // MARK: - Incrypt
-    //===============================
+
+    // MARK: - encrypt
+    
     func sha256(_ input: String) -> String {
         let inputData = Data(input.utf8)
         let hashedData = SHA256.hash(data: inputData)

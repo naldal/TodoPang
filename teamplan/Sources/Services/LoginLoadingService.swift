@@ -10,9 +10,9 @@ import Foundation
 
 final class LoginLoadingService{
     
-    //================================
+    
     // MARK: - Properties
-    //================================
+    
     // for service
     private let util = Utilities()
     private let userCD = UserServicesCoredata()
@@ -35,9 +35,9 @@ final class LoginLoadingService{
     // for log
     private let location = "LoginLoading"
     
-    //===============================
+    
     // MARK: - Initializer
-    //===============================
+    
     /// `LoginLoadingService` 클래스의 인스턴스를 초기화합니다.
     ///
     /// 이 초기화 과정에서는 다음과 같은 작업이 수행됩니다:
@@ -55,9 +55,9 @@ final class LoginLoadingService{
     }
 }
 
-//===============================
+
 // MARK: - Executor
-//===============================
+
 extension LoginLoadingService{
     
     /// 사용자 로그인 프로세스를 실행합니다. 이 과정에서 로컬 데이터 검사, 사용자 필터링, (일간/주간)업데이트 진행여부 및 데이터 검증을 포함합니다.
@@ -93,9 +93,9 @@ extension LoginLoadingService{
     }
 }
 
-//===============================
+
 // MARK: - Element
-//===============================
+
 extension LoginLoadingService{
     
     // ---------- DataInspection: Before ----------
@@ -187,14 +187,14 @@ extension LoginLoadingService{
 }
 
 
-//===============================
+
 // MARK: - Support Function
-//===============================
+
 extension LoginLoadingService{
     
-    //--------------------
+    
     // Check Data
-    //--------------------
+    
     /// 로컬에 필요한 모든 데이터가 존재하는지 확인합니다.
     /// - Returns: 모든 데이터(사용자, 통계정보, 접속 로그, 도전과제 로그)가 존재하면 true, 그렇지 않으면 false를 반환합니다.
     private func checkLocalData() -> Bool {
@@ -235,9 +235,9 @@ extension LoginLoadingService{
     }
     
     
-    //--------------------
+    
     // Synchronize (Local to Server)
-    //--------------------
+    
     /// 로컬 데이터를 서버에 동기화하는 프로세스를 실행합니다.
     /// - Parameters:
     ///   - attemptCount: 현재까지 시도된 동기화 횟수입니다.
@@ -257,9 +257,9 @@ extension LoginLoadingService{
     }
     
     
-    //--------------------
+    
     // Daily Update
-    //--------------------
+    
     /// 일일 업데이트를 진행합니다. 통계정보의 서비스 기간을 업데이트하고 접속로그에 로그인 시간을 기록합니다.
     /// - Parameter loginDate: 로그인 시도 날짜입니다.
     /// - Throws: 업데이트 실패 시 예외를 던집니다.
@@ -294,9 +294,9 @@ extension LoginLoadingService{
     }
     
     
-    //--------------------
+    
     // Weekly Update
-    //--------------------
+    
     /// 주간 업데이트가 필요한지 여부를 결정합니다. 접속일 기준 7일 단위로 필요여부를 판단합니다.
     /// - Returns: 주간 업데이트가 필요한 경우 `true`, 그렇지 않은 경우 `false`를 반환합니다.
     private func isWeeklyUpdateNeed() -> Bool {
@@ -330,9 +330,9 @@ extension LoginLoadingService{
         try statCD.updateStatistics(with: updated)
     }
     
-    //--------------------
+    
     // Utilities
-    //--------------------
+    
     /// 소셜 로그인 결과로부터 사용자 ID를 추출합니다.
     /// - Parameter authResult: 소셜 로그인 응답 데이터입니다.
     /// - Returns: 추출된 사용자 ID입니다.
@@ -342,9 +342,9 @@ extension LoginLoadingService{
     }
 }
 
-//================================
+
 // MARK: - Enum
-//================================
+
 enum LoginLoadingServiceError: LocalizedError {
     case TooManyLocalSyncAttempt
     case TooManyServerSyncAttempt

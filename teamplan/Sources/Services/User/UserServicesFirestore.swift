@@ -10,29 +10,29 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-//================================
+
 // MARK: - Main Function
-//================================
+
 final class UserServicesFirestore{
 
-    //--------------------
+    
     // Parameter
-    //--------------------
+    
     let util = Utilities()
     let fs = Firestore.firestore()
     
-    //--------------------
+    
     // Set
-    //--------------------
+    
     func setUser(with user: UserObject) async throws {
         // Search & Set Data
         let collection = fetchCollection()
         try await collection.addDocument(data: user.toDictionary())
     }
     
-    //--------------------
+    
     // Get
-    //--------------------
+    
     func getUser(from userId: String) async throws -> UserObject {
         // Fetch Document
         let docs = try await fetchDocument(with: userId)
@@ -40,9 +40,9 @@ final class UserServicesFirestore{
         return try convertToUser(with: docs.data())
     }
     
-    //--------------------
+    
     // Update
-    //--------------------
+    
     func updateUser(with updatedUser: UserObject) async throws {
         // Fetch Document
         let docs = try await fetchDocument(with: updatedUser.user_id)
@@ -50,9 +50,9 @@ final class UserServicesFirestore{
         try await docs.reference.updateData(updatedUser.toDictionary())
     }
     
-    //--------------------
+    
     // Delete
-    //--------------------
+    
     func deleteUser(with userId: String) async throws {
         // Fetch Document
         let docs = try await fetchDocument(with: userId)
@@ -61,9 +61,9 @@ final class UserServicesFirestore{
     }
 }
 
-//================================
+
 // MARK: - Support Function
-//================================
+
 extension UserServicesFirestore{
     
     // Fetch: Collection
@@ -94,9 +94,9 @@ extension UserServicesFirestore{
     }
 }
 
-//================================
+
 // MARK: - Exception
-//================================
+
 enum UserErrorFS: LocalizedError {
     case UnexpectedConvertDocsError
     case UnexpectedConvertObjectError

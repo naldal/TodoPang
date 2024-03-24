@@ -11,9 +11,9 @@ import CoreData
 
 final class ChallengeLogServicesCoredata{
     
-    //================================
+    
     // MARK: - Parameter
-    //================================
+    
     let util = Utilities()
     let cd = CoreDataManager.shared
     var context: NSManagedObjectContext {
@@ -21,23 +21,23 @@ final class ChallengeLogServicesCoredata{
     }
 }
 
-//================================
+
 // MARK: - Main Function
-//================================
+
 extension ChallengeLogServicesCoredata{
     
-    //--------------------
+    
     // Set
-    //--------------------
+    
     func setLog(with log: ChallengeLog) throws {
         // create & set
         try setEntity(with: log)
         try context.save()
     }
     
-    //--------------------
+    
     // Get
-    //--------------------
+    
     // Single
     func getLog(with userId: String, and logId: Int) throws -> ChallengeLog {
         // fetch entity
@@ -53,9 +53,9 @@ extension ChallengeLogServicesCoredata{
         return try entities.map { try convertToLog(with: $0) }
     }
     
-    //--------------------
+    
     // Update
-    //--------------------
+    
     func updateLog(with updated: ChallengeLogUpdateDTO) throws {
         // fetch entity
         let entity = try fetchEntity(with: updated.userId, and: updated.logId)
@@ -65,9 +65,9 @@ extension ChallengeLogServicesCoredata{
         }
     }
     
-    //--------------------
+    
     // Delete
-    //--------------------
+    
     // Single
     func deleteLog(with userId: String, and logId: Int) throws {
         // fetch entity
@@ -87,9 +87,9 @@ extension ChallengeLogServicesCoredata{
     }
 }
 
-//================================
+
 // MARK: - Support Function
-//================================
+
 extension ChallengeLogServicesCoredata{
     
     // Set Entity
@@ -102,7 +102,7 @@ extension ChallengeLogServicesCoredata{
         entity.log_complete = log_complete_string
         entity.log_upload_at = log.log_upload_at
     }
-    //----------------------------------------------
+    
     
     // Fetch Entity
     private func fetchEntity(with userId: String, and logId: Int) throws -> ChallengeLogEntity {
@@ -127,7 +127,7 @@ extension ChallengeLogServicesCoredata{
         // fetch & return
         return try context.fetch(fetchReq)
     }
-    //----------------------------------------------
+    
     
     // Convert: to Object
     private func convertToLog(with entity: ChallengeLogEntity) throws -> ChallengeLog {
@@ -143,7 +143,7 @@ extension ChallengeLogServicesCoredata{
         }
         return log
     }
-    //----------------------------------------------
+    
     
     // Update: Check
     private func checkUpdate(from entity: ChallengeLogEntity, with dto: ChallengeLogUpdateDTO) throws -> Bool {
@@ -177,9 +177,9 @@ extension ChallengeLogServicesCoredata{
     }
 }
 
-//===============================
+
 // MARK: - Exception
-//===============================
+
 enum ChallengeLogErrorCD: LocalizedError {
     case UnexpectedConvertError
     case UnexpectedFetchError

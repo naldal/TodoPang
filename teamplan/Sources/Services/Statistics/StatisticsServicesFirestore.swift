@@ -10,29 +10,29 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-//================================
+
 // MARK: - Main Function
-//================================
+
 final class StatisticsServicesFirestore{
     
-    //--------------------
+    
     // Parameter
-    //--------------------
+    
     let util = Utilities()
     let fs = Firestore.firestore()
     
-    //--------------------
+    
     // Set
-    //--------------------
+    
     func setStatistics(with stat: StatisticsObject) async throws {
         // Search & Set Data
         let collection = fetchCollection()
         try await collection.addDocument(data: stat.toDictionary())
     }
     
-    //--------------------
+    
     // Get
-    //--------------------
+    
     func getStatistics(from userId: String) async throws -> StatisticsObject {
         // Fetch Data
         let docs = try await fetchDocs(with: userId)
@@ -40,9 +40,9 @@ final class StatisticsServicesFirestore{
         return try convertToStat(with: docs.data())
     }
     
-    //--------------------
+    
     // Update
-    //--------------------
+    
     func updateStatistics(with updatedStat: StatisticsObject) async throws {
         // Fetch Data
         let docs = try await fetchDocs(with: updatedStat.stat_user_id)
@@ -50,9 +50,9 @@ final class StatisticsServicesFirestore{
         try await docs.reference.updateData(updatedStat.toDictionary())
     }
     
-    //--------------------
+    
     // Delete
-    //--------------------
+    
     func deleteStatistics(with userId: String) async throws {
         // Fetch Data
         let docs = try await fetchDocs(with: userId)
@@ -61,9 +61,9 @@ final class StatisticsServicesFirestore{
     }
 }
 
-//================================
+
 // MARK: - Support Function
-//================================
+
 extension StatisticsServicesFirestore{
     
     // Fetch: Collection
@@ -94,9 +94,9 @@ extension StatisticsServicesFirestore{
     }
 }
 
-//================================
+
 // MARK: - Exception
-//================================
+
 enum StatErrorFS: LocalizedError {
     case UnexpectedConvertError
     case UnexpectedSearchError

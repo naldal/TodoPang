@@ -10,14 +10,12 @@ import Foundation
 import FirebaseAuth
 import GoogleSignIn
 
-//============================
-// MARK: DTO
-//============================
-struct AuthSocialLoginResDTO{
+
+struct AuthSocialLoginResDTO {
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let email: String
     let provider: Providers
     
@@ -25,9 +23,9 @@ struct AuthSocialLoginResDTO{
     let accessToken: String
     var status: UserType
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // Google
     init(loginResult: GIDSignInResult, userType: UserType){
         self.provider = .google
@@ -47,9 +45,9 @@ struct AuthSocialLoginResDTO{
     }
 }
 
-//============================
+
 // MARK: Enum
-//============================
+
 enum UserType: String{
     case new = "Normal: User User"
     case exist = "Normal: Exist User"

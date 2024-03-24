@@ -10,9 +10,9 @@ import Foundation
 
 final class HomeService {
     
-    //===============================
+    
     // MARK: - Properties
-    //===============================
+    
     // for service
     private let userCD = UserServicesCoredata()
     private let projectCD = ProjectServicesCoredata()
@@ -26,9 +26,9 @@ final class HomeService {
     // shared
     let challenge: ChallengeService
     
-    //===============================
+    
     // MARK: - Initializer
-    //===============================
+    
     /// 사용자 ID를 기반으로 `HomeService` 및 `ChallengeService` 인스턴스를 생성합니다.
     /// - Parameter userId: 사용자 ID입니다.
     init(with userId: String){
@@ -48,9 +48,9 @@ final class HomeService {
         }
     }
     
-    //===============================
+    
     // MARK: - Generate Sentence
-    //===============================
+    
     // MARK: - Generate Sentence
     /// 랜덤한 문장을 생성하여 반환합니다.
     /// - Returns: 생성된 문장입니다.
@@ -64,9 +64,9 @@ final class HomeService {
         }
     }
     
-    //===============================
+    
     // MARK: - get ProjectCard
-    //===============================
+    
     // MARK: - Get ProjectCard
     /// 사용자의 목표(project) 조회 후, 마감일이 가장 가까운 3개를 내림차순으로 정렬하여 반환합니다.
     /// - Returns: `[ProjectCardDTO]` 목표(Project) 정보들 중, Card에 표현될 정보만 포함되어 있습니다.
@@ -86,9 +86,9 @@ final class HomeService {
     }
 }
 
-//===============================
+
 // MARK: - MyChallenge
-//===============================
+
 extension HomeService{
     /// 사용자의 '나의 도전과제' 목록을 조회합니다'
     /// - Returns: 조회된 '나의 도전과제' 정보를 '[MyChallengeDTO]' 형태로 반환합니다. 단, 사용자가 '나의 도전과제' 를 지정하지 않은경우 '[]' 가 반환됩니다.
@@ -98,9 +98,9 @@ extension HomeService{
     }
 }
 
-//===============================
+
 // MARK: - Exception
-//===============================
+
 enum HomeServiceError: LocalizedError {
     case UnexpectedInitError
     case UnexpectedSentenceGenerateError

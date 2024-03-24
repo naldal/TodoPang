@@ -10,9 +10,9 @@ import Foundation
 
 final class LogManager{
 
-    //================================
+    
     // MARK: - Parameter
-    //================================
+    
     // reference
     let challengeLogCD = ChallengeLogServicesCoredata()
     let challengeLogFS = ChallengeLogServicesFirestore()
@@ -38,9 +38,9 @@ final class LogManager{
     private let location = "LogManager"
     private var parent = "unknown"
     
-    //===============================
+    
     // MARK: - Initialize
-    //===============================
+    
     init(){
         self.userId = "unknown"
         self.projectId = 0
@@ -76,15 +76,15 @@ final class LogManager{
     }
 }
 
-//================================
+
 // MARK: - Challenge Log
 // Main Function
-//================================
+
 extension LogManager{
     
-    //--------------------
+    
     // Set
-    //--------------------
+    
     // new log: local (input -> local)
     func setNewChallengeLogAtLocal(with challengeId: Int, and completeDate: Date) throws {
         let log = ChallengeLog(
@@ -105,9 +105,9 @@ extension LogManager{
         }
     }
 
-    //--------------------
+    
     // Get
-    //--------------------
+    
     // single log: local
     func getChallengeLogAtLocal() throws -> ChallengeLog {
         return try challengeLogCD.getLog(with: userId, and: challengeLogId)
@@ -123,9 +123,9 @@ extension LogManager{
         return try await challengeLogFS.getLogList(with: userId)
     }
 
-    //--------------------
+    
     // Update
-    //--------------------
+    
     // append: local only
     func appendChallengeLog(with challengeId: Int, and completeDate: Date) throws {
         let updated = ChallengeLogUpdateDTO(
@@ -137,9 +137,9 @@ extension LogManager{
         try challengeLogCD.updateLog(with: updated)
     }
     
-    //--------------------
+    
     // Delete
-    //--------------------
+    
     // total log: local
     func deleteAllChallengeLogAtLocal() throws {
         try challengeLogCD.deleteLogList(with: userId)
@@ -150,14 +150,14 @@ extension LogManager{
     }
 }
 
-//================================
+
 // MARK: - Access Log
-//================================
+
 extension LogManager{
     
-    //--------------------
+    
     // Set
-    //--------------------
+    
     // new log: local (input -> local)
     func setNewAccessLogAtLocal(with accessDate: Date) throws {
         let log = AccessLog(logId: accessLogId, userId: userId, accessDate: accessDate)
@@ -177,9 +177,9 @@ extension LogManager{
         }
     }
     
-    //--------------------
+    
     // Get
-    //--------------------
+    
     // single log: local
     func getAccessLogAtLocal() throws -> AccessLog {
         return try accessLogCD.getLog(with: userId, and: accessLogId)
@@ -195,9 +195,9 @@ extension LogManager{
         return try await accessLogFS.getLogList(with: userId)
     }
     
-    //--------------------
+    
     // Update
-    //--------------------
+    
     // append: local only
     func appendAccessLog(with accessDate: Date) async throws {
         if try shouldCreateNewAccessLog() {
@@ -210,9 +210,9 @@ extension LogManager{
         }
     }
     
-    //--------------------
+    
     // Delete
-    //--------------------
+    
     func deleteAllAccessLogAtLocal() throws {
         try accessLogCD.deleteLogList(with: userId)
     }
@@ -221,23 +221,23 @@ extension LogManager{
     }
 }
 
-//================================
+
 // MARK: - Project Log (WIP)
-//================================
+
 extension LogManager{
     
-    //--------------------
-    // Create
-    //--------------------
     
-    //--------------------
+    // Create
+    
+    
+    
     // Sync
-    //--------------------
+    
 }
 
-//================================
+
 // MARK: - Executor
-//================================
+
 extension LogManager{
     
     // main executor
@@ -271,10 +271,10 @@ extension LogManager{
     }
 }
 
-//================================
+
 // MARK: - Element
-//================================
-extension LogManager{
+
+extension LogManager {
     
     // create process
     private func createNewAccessLog(with accessDate: Date) async throws {
@@ -286,7 +286,7 @@ extension LogManager{
         util.log(.info, location, "(\(parent)) Successfully Set New AccessLog at Server", userId)
     }
     
-    // update logId ======================================================
+    // update logId ==
     // local
     private func updateLocalAccessLog(with newId: Int, at uploadAt: Date) throws {
         // prepare parameter
@@ -322,7 +322,6 @@ extension LogManager{
             throw error
         }
     }
-    //======================================================
     
     // manage outdate log
     private func manageOutdatedLogs() async throws {
@@ -345,10 +344,10 @@ extension LogManager{
     }
 }
 
-//================================
+
 // MARK: - Support Function
-//================================
-extension LogManager{
+
+extension LogManager {
     // Check: Log Size
     private func shouldCreateNewAccessLog() throws -> Bool {
         let log = try accessLogCD.getLog(with: userId, and: accessLogId)
@@ -386,17 +385,17 @@ extension LogManager{
     }
 }
 
-//================================
+
 // MARK: - Enum
-//================================
+
 enum LogType: Int{
     case access = 1
     case challenge = 2
 }
 
-//================================
+
 // MARK: - Exception
-//================================
+
 enum LogManagerError: LocalizedError {
     case UnexpectedSearchIdError
     case UnexpectedSearchLogError

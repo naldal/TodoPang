@@ -10,7 +10,7 @@ import Foundation
 import FirebaseAuth
 import AuthenticationServices
 
-final class AuthAppleServices{
+final class AuthAppleServices {
     
     private var nonceGen: String?
     
@@ -18,11 +18,12 @@ final class AuthAppleServices{
         self.nonceGen = AppleLoginSupport.shared.randomNonceString()
     }
     
-    //====================
-    // MARK: Login
-    //====================
-    func login(appleCredential: ASAuthorizationAppleIDCredential ,
-               completion: @escaping(Result<AuthSocialLoginResDTO, Error>) -> Void) async {
+    // MARK: - Login
+    
+    func login(
+        appleCredential: ASAuthorizationAppleIDCredential,
+        completion: @escaping(Result<AuthSocialLoginResDTO, Error>) -> Void
+    ) async {
         
         // Get Random nonce for credential
         guard let nonce = nonceGen else {
@@ -45,7 +46,7 @@ final class AuthAppleServices{
         // Create Firebase credential using token string and nonce
         let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
         
-        do{
+        do {
             let authResult = try await Auth.auth().signIn(with: credential)
             let userType = authResult.additionalUserInfo?.isNewUser == true ? UserType.new : UserType.exist
             

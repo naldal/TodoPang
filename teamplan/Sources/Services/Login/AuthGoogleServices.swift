@@ -19,9 +19,7 @@ final class AuthGoogleServices{
     private var keychain = KeychainSwift()
     init(){}
     
-    //====================
     // MARK: Login
-    //====================
     // login process
     @MainActor func login() async throws -> AuthSocialLoginResDTO {
         util.log(.info, location, "Initialize Google-Social-Login process", "LoginProcess")
@@ -58,9 +56,8 @@ final class AuthGoogleServices{
         return authResult.additionalUserInfo?.isNewUser == true ? UserType.new : UserType.exist
     }
     
-    //====================
     // MARK: Logout
-    //====================
+    //
     func logout() throws {
         try Auth.auth().signOut()
         keychain.delete("idToken")
@@ -70,9 +67,8 @@ final class AuthGoogleServices{
         userDefaultManager?.userName = ""
     }
     
-    //====================
     // MARK: Support
-    //====================
+    //
     private func dataInspection(with dto: AuthSocialLoginResDTO) {
         util.log(.info, location, "Initialize AuthDTO data inspection", dto.email)
         let log = """
@@ -84,9 +80,9 @@ final class AuthGoogleServices{
     }
 }
 
-//====================
+//
 // MARK: Exception
-//====================
+//
 enum AuthGoogleError: LocalizedError {
     case UnexpectedTopViewControllerError
     

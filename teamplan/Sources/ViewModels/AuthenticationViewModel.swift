@@ -11,11 +11,21 @@ import KeychainSwift
 import Combine
 import SwiftUI
 
-final class AuthenticationViewModel: ObservableObject{
+final class AuthenticationViewModel: ObservableObject {
     
-    //====================
+    enum State {
+        case signedIn
+        case signedOut
+    }
+    
+    enum SignupError: Error {
+        case invalidUser
+        case invalidAccountInfo
+        case signupFailed
+    }
+    
     // Parameter
-    //====================
+    
     let loginService = LoginService()
     let util = Utilities()
     lazy var loginLoadingService = LoginLoadingService()
@@ -31,9 +41,8 @@ final class AuthenticationViewModel: ObservableObject{
         self.addSubscribers()
     }
     
-    //====================
     // Google Login
-    //====================
+    
     func signInGoogle() async throws -> AuthSocialLoginResDTO {
         do {
             let user = try await loginService.loginGoole()
@@ -101,9 +110,9 @@ final class AuthenticationViewModel: ObservableObject{
     }
     
     
-    /*====================
+    /*
     // Authenticate
-    //====================
+    //
     func logout() async throws {
         try firebaseAuthenticator.logout()
         self.user = AuthenticatedUser()
@@ -112,22 +121,5 @@ final class AuthenticationViewModel: ObservableObject{
     
     private func addSubscribers() {
 
-    }
-}
-
-
-//====================
-// Extension
-//====================
-extension AuthenticationViewModel{
-    enum State{
-        case signedIn
-        case signedOut
-    }
-    
-    enum SignupError: Error {
-        case invalidUser
-        case invalidAccountInfo
-        case signupFailed
     }
 }

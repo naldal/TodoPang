@@ -11,9 +11,9 @@ import CoreData
 
 final class ProjectServicesCoredata{
     
-    //===============================
+    
     // MARK: - Parameter
-    //===============================
+    
     let util = Utilities()
     let cm = CoreDataManager.shared
     var context: NSManagedObjectContext {
@@ -21,14 +21,14 @@ final class ProjectServicesCoredata{
     }
 }
 
-//===============================
+
 // MARK: Main Function
-//===============================
+
 extension ProjectServicesCoredata{
 
-    //--------------------
+    
     // Set
-    //--------------------
+    
     func setProject(with project: ProjectSetDTO, id: Int, by userId: String, at setDate: Date) throws {
         // Create Entity
         setEntity(with: ProjectObject(from: project, id: id, userId: userId, at: setDate))
@@ -36,9 +36,9 @@ extension ProjectServicesCoredata{
         try context.save()
     }
     
-    //--------------------
+    
     // Get
-    //--------------------
+    
     // Object
     func getProject(from projectId: Int, and userId: String) throws -> ProjectObject {
         // Fetch Entity
@@ -54,9 +54,9 @@ extension ProjectServicesCoredata{
         return try entities.map { try convertToDTO(with: $0) }
     }
     
-    //--------------------
+    
     // Update
-    //--------------------
+    
     func updateProject(to dto: ProjectUpdateDTO) throws {
         // Fetch Entity
         let entity = try fetchEntity(with: dto.projectId, and: dto.userId)
@@ -66,9 +66,9 @@ extension ProjectServicesCoredata{
         }
     }
     
-    //--------------------
+    
     // Delete
-    //--------------------
+    
     func deleteProject(with projectId: Int, and userId: String) throws {
         // Fetch Entity
         let entity = try fetchEntity(with: projectId, and: userId)
@@ -78,9 +78,9 @@ extension ProjectServicesCoredata{
     }
 }
 
-//===============================
+
 // MARK: Support Function
-//===============================
+
 extension ProjectServicesCoredata{
     
     // Fetch Single Entity
@@ -106,7 +106,7 @@ extension ProjectServicesCoredata{
         // fetch & return
         return try context.fetch(fetchReq)
     }
-    //----------------------------------------------
+    
     
     // Update Check
     private func checkUpdate(from origin: ProjectEntity, to updated: ProjectUpdateDTO) -> Bool {
@@ -130,7 +130,7 @@ extension ProjectServicesCoredata{
 
         return isUpdated
     }
-    //----------------------------------------------
+    
     
     // Set Entity
     private func setEntity(with reqProject: ProjectObject){
@@ -148,7 +148,7 @@ extension ProjectServicesCoredata{
         entity.proj_changed_at = reqProject.proj_changed_at
         entity.proj_finished_at = reqProject.proj_finished_at
     }
-    //----------------------------------------------
+    
     
     // Convert: to Object
     private func convertToObject(with entity: ProjectEntity) throws -> ProjectObject {
@@ -167,9 +167,9 @@ extension ProjectServicesCoredata{
     }
 }
 
-//===============================
+
 // MARK: - Exception
-//===============================
+
 enum ProjectErrorCD: LocalizedError {
     case ProjectRetrievalByIdentifierFailed
     case UnexpectedObjectConvertError

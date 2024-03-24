@@ -8,14 +8,14 @@
 
 import Foundation
 
-//============================
+
 // MARK: Entity
-//============================
+
 struct UserObject{
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let user_id: String
     let user_email: String
     let user_name: String
@@ -25,9 +25,9 @@ struct UserObject{
     let user_login_at: Date
     var user_updated_at: Date
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // SignupService
     init(newUser: UserSignupDTO, signupDate: Date) {
         self.user_id = newUser.userId
@@ -88,9 +88,9 @@ struct UserObject{
         self.user_updated_at = DateFormatter.standardFormatter.date(from: user_updated_at)!
     }
 
-    //--------------------
+    
     // function
-    //--------------------
+    
     func toDictionary() -> [String: Any] {
 
         return [
@@ -110,9 +110,9 @@ struct UserObject{
     }
 }
 
-//============================
+
 // MARK: Enum Type
-//============================
+
 enum UserStatus: String{
     case active = "Active"
     case dormant = "Dormant"
