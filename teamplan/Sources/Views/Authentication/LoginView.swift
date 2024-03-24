@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 import GoogleSignInSwift
 import AuthenticationServices
 
@@ -25,6 +26,7 @@ struct LoginView: View {
     @State private var isLoading: Bool = false
     @State private var isLogin: Bool = false
     @State private var showAlert = false
+    
     @AppStorage("mainViewState") var mainViewState: MainViewState?
     
     @ObservedObject var vm = GoogleSignInButtonViewModel()
@@ -70,16 +72,39 @@ struct LoginView: View {
         VStack(spacing: 18) {
             
             SignInWithAppleButton(
-                onRequest: { request in
+                onRequest: {
+                    request in
+                    self.authViewModel.requestNonceSignInApple()
                     request.requestedScopes = [.fullName, .email]
+                    request.nonce = self.authViewModel.nonce
                 },
                 onCompletion: { result in
                     switch result {
                     case .success(let authResults):
                         switch authResults.credential {
                         case let appleIDCredential as ASAuthorizationAppleIDCredential:
-                            let userIdentifier = appleIDCredential.user
-                            self.showHomeView = true
+                            guard let appleIDToken = appleIDCredential.identityToken else {
+                                print("Unable to fetch identity token")
+                                return
+                            }
+                            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+                                print("\(appleIDToken.debugDescription)")
+                                return
+                            }
+                            
+                            let credential = OAuthProvider.credential(
+                                withProviderID: "apple.com",
+                                idToken: idTokenString,
+                                rawNonce: self.authViewModel.nonce
+                            )
+                            Auth.auth().signIn(with: credential) { (authResult, error) in
+                                if let error = error {
+                                    print("\(error.localizedDescription)")
+                                    return
+                                }
+                                print("Apple Login Successful.")
+                                showHomeView = true
+                            }
                         default:
                             break
                         }
@@ -96,24 +121,6 @@ struct LoginView: View {
                 RoundedRectangle(cornerRadius: 4)
                     .stroke(Gen.Colors.blackColor.swiftUIColor, lineWidth: 1)
             )
-            
-            
-            Button(action: {}) {
-                HStack {
-                    Image("appleLogo")
-                    Spacer()
-                    Text("Apple로 계속하기")
-                    Spacer()
-                }
-                .padding(.horizontal)
-                .frame(height: 48)
-                .frame(maxWidth: .infinity)
-                .foregroundColor(.theme.blackColor)
-                .background(
-                    RoundedRectangle(cornerRadius: 4)
-                        .stroke(Gen.Colors.blackColor.swiftUIColor, lineWidth: 1)
-                )
-            }
             
             GoogleSignInButton(viewModel: self.signInViewModel) {
                 Task {

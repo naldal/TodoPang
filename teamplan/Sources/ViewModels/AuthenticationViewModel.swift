@@ -71,8 +71,8 @@ final class AuthenticationViewModel: ObservableObject {
         }
     }
     
-    func requestNonceSignInApple() -> String {
-        return self.loginService.requestNonceSignInApple()
+    func requestNonceSignInApple() {
+        self.nonce = self.loginService.requestNonceSignInApple()
     }
     
     func tryLogin() async -> Bool {

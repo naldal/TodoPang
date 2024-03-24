@@ -11,30 +11,27 @@ import AuthenticationServices
 
 final class LoginService {
     
-    let google = AuthGoogleServices()
-    let apple = AuthAppleServices()
+    // MARK: - private properties
     
-    // MARK: GoogleLogin
+    private let google: AuthGoogleService
+    private let apple: AuthAppleService
+
     
-    func loginGoole() async throws -> AuthSocialLoginResDTO {
+    // MARK: - life cycle
+    
+    init(authGoogleService: AuthGoogleService, authAppleService: AuthAppleService) {
+        self.google = authGoogleService
+        self.apple = authAppleService
+    }
+    
+    
+    // MARK: - method
+    
+    func loginGoogle() async throws -> AuthSocialLoginResDTO {
         return try await google.login()
     }
     
-    // MARK: AppleLogin
-    
-    func loginApple(
-        appleCredential: ASAuthorizationAppleIDCredential,
-        result: @escaping(Result<AuthSocialLoginResDTO, Error>) -> Void
-    ) async {
-        await apple.login(appleCredential: appleCredential) { loginResult in
-            switch loginResult {
-            case .success(let userInfo):
-                result(.success(userInfo))
-                break
-            case .failure(let error):
-                print(error)
-                break
-            }
-        }
+    func requestNonceSignInApple() -> String {
+        return self.apple.randomNonce()
     }
 }

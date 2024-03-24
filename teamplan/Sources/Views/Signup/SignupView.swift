@@ -40,13 +40,9 @@ struct SignupView: View {
                 VStack {
                     Spacer()
                         .frame(height: 34)
-
-                    levelBar
-                    
+                    self.levelBar
                     Spacer()
                         .frame(height: 42)
-                    
-                    
                     ZStack {
                         switch signupState {
                         case 0:
@@ -57,14 +53,10 @@ struct SignupView: View {
                                 .foregroundColor(.green)
                         }
                     }
-                    
                     Spacer()
-                    
-                    bottomButton
-
+                    self.bottomButton
                 }
-                
-                if isLoading {
+                if self.isLoading {
                     LoadingView()
                 }
             }
@@ -94,12 +86,7 @@ struct SignupView: View {
         }
     }
     
-}
-
-// MARK: - COMPONENTS
-extension SignupView {
-    
-
+    // MARK: - components
     
     private var levelBar: some View {
         
@@ -182,6 +169,9 @@ extension SignupView {
             }
     }
     
+    
+    // MARK: - private method
+    
     private func checkValidUserName() -> Bool {
         return self.userName.count > 5 ? true : false
     }
@@ -189,9 +179,9 @@ extension SignupView {
     
     private func getCurrentLevelBarColor(index: Int) -> Color {
         if index == signupState {
-            return .theme.whiteGreyColor
+            return Gen.Colors.whiteGreyColor.swiftUIColor
         } else {
-            return .theme.mainBlueColor
+            return Gen.Colors.mainBlueColor.swiftUIColor
         }
     }
     
@@ -203,11 +193,4 @@ extension SignupView {
             throw error
         }
     }
-}
-
-// MARK: - FUNCTIONS
-
-extension SignupView {
-
-
 }
