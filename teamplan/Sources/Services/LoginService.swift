@@ -8,70 +8,69 @@
 
 import Foundation
 import FirebaseAuth
+import GoogleSignIn
 import AuthenticationServices
 
-final class LoginService {
+final class LoginService{
     
-    // MARK: - private properties
+    let google = AuthGoogleServices()
+    let apple = AuthAppleServices()
     
-    private let google: AuthGoogleService
-    private let apple: AuthAppleService
-
-    
-    // MARK: - life cycle
-    
-    init(authGoogleService: AuthGoogleService, authAppleService: AuthAppleService) {
-        self.google = authGoogleService
-        self.apple = authAppleService
-    }
-    
-    
-    // MARK: - private method
-    
-    func randomNonce(length: Int = 32) -> String {
-        precondition(length > 0)
-        let charset: [Character] =
-            Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
-        var resultNonce = ""
-        var remainingLength = length
-
-        while remainingLength > 0 {
-            let randoms: [UInt8] = (0 ..< 16).map { _ in
-                var random: UInt8 = 0
-                let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
-                if errorCode != errSecSuccess {
-                    fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
-                }
-                return random
-            }
-
-            randoms.forEach { random in
-                if remainingLength == 0 {
-                    return
-                }
-
-                if random < charset.count {
-                    resultNonce.append(charset[Int(random)])
-                    remainingLength -= 1
-                }
-            }
-        }
-
-        return resultNonce
-    }
-    
-    
-    // MARK: - internal method
-    
-    func loginGoogle() async throws -> AuthSocialLoginResDTO {
+    func loginGoole() async throws -> AuthSocialLoginResDTO {
         return try await google.login()
     }
+
+    func loginApple(
+        appleCredential: ASAuthorizationAppleIDCredential ,
+        result: @escaping(Result<AuthSocialLoginResDTO, Error>) -> Void) async {
+        
+        await apple.login(appleCredential: appleCredential){ loginResult in
+            switch loginResult {
+            // Authentication Success: NewUser & Exist
+            case .success(let userInfo):
+                result(.success(userInfo))
+                break
+            // Authentication Failure: print error
+            case .failure(let error):
+                print(error)
+                
+                // TODO: case2. firebase authentication error
+                // TODO: case3. Apple Social Login error
+                
+                break
+            }
+        }
+    }
+}
+
+struct AuthSocialLoginResDTO{
     
-    func loginApple(credential: OAuthCredential, idToken: String, completion: @escaping (Result<AuthSocialLoginResDTO, SignupError>) -> Void) {
-        return self.apple.login(credential: credential, idToken: idToken, completion: completion)
+    let email: String
+    let provider: Providers
+    let idToken: String
+    let accessToken: String
+    var status: UserType
+    
+    // Google
+    init(loginResult: GIDSignInResult, userType: UserType){
+        self.provider = .google
+        self.email = loginResult.user.profile!.email
+        self.idToken = loginResult.user.idToken!.tokenString
+        self.accessToken = loginResult.user.accessToken.tokenString
+        self.status = userType
     }
     
-    func requestRandomNonce() -> String {
-        return self.randomNonce()
+    // Apple
+    init(loginResult: User, idToken: String, userType: UserType){
+        self.provider = .apple
+        self.email = loginResult.email!
+        self.idToken = idToken
+        self.accessToken = ""
+        self.status = userType
     }
+}
+
+enum UserType: String{
+    case new = "New User"
+    case exist = "Exist User"
 }
