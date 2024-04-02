@@ -10,9 +10,9 @@ import Foundation
 
 struct ProjectObject{
     
-    //--------------------
+    
     // Content
-    //--------------------
+    
     // id
     let proj_id: Int
     let proj_user_id: String
@@ -36,9 +36,9 @@ struct ProjectObject{
     let proj_changed_at: Date
     var proj_finished_at: Date?
     
-    //--------------------
+    
     // Constructor
-    //--------------------
+    
     // Set
     init(from dto: ProjectSetDTO, id: Int, userId: String, at setDate: Date) {
         self.proj_id = id

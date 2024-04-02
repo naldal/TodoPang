@@ -12,15 +12,15 @@ import FirebaseFirestoreSwift
 
 final class ChallengeServicesFirestore{
     
-    //================================
+    
     // MARK: - Parameter Setting
-    //================================
+    
     let util = Utilities()
     let fs = Firestore.firestore()
     
-    //================================
+    
     // MARK: - Get Challenges
-    //================================
+    
     func getChallenges() async throws -> [ChallengeObject] {
         
         // Search Data
@@ -39,9 +39,9 @@ final class ChallengeServicesFirestore{
     }
 }
 
-//================================
+
 // MARK: - Exception
-//================================
+
 enum ChallengeErrorFS: LocalizedError {
     case InternalError
     

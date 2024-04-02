@@ -9,9 +9,9 @@
 import Foundation
 import CoreData
 
-//================================
+
 // MARK: - Parameter
-//================================
+
 final class ProjectLogServicesCoredata{
 
     let util = Utilities()
@@ -21,14 +21,14 @@ final class ProjectLogServicesCoredata{
     }
 }
 
-//================================
+
 // MARK: - Main Function
-//================================
+
 extension ProjectLogServicesCoredata{
     
-    //--------------------
+    
     // Set
-    //--------------------
+    
     func setLog(with newLog: ProjectLog) throws {
         // Create Entity
         try setLogEntity(with: newLog)
@@ -37,9 +37,9 @@ extension ProjectLogServicesCoredata{
         try context.save()
     }
     
-    //--------------------
+    
     // Get
-    //--------------------
+    
     // Single
     func getLog(with projectId: Int, by userId: String) throws -> ProjectLog {
         // Fetch Entity
@@ -58,9 +58,9 @@ extension ProjectLogServicesCoredata{
         return try entities.map { try convertToLog(from: $0) }
     }
     
-    //--------------------
+    
     // Update
-    //--------------------
+    
     func updateLog(with dto: ProjectLogUpdateDTO) throws {
         // Fetch Entity
         let entity = try fetchEntity(with: dto.projectId, by: dto.userId)
@@ -71,9 +71,9 @@ extension ProjectLogServicesCoredata{
         }
     }
     
-    //--------------------
+    
     // Delete
-    //--------------------
+    
     func deleteLog(with projectId: Int, by userId: String) throws {
         // Fetch Entity
         let entity = try fetchEntity(with: projectId, by: userId)
@@ -84,9 +84,9 @@ extension ProjectLogServicesCoredata{
     }
 }
 
-//================================
+
 // MARK: - Support Function
-//================================
+
 extension ProjectLogServicesCoredata{
     
     // Fetch Entity
@@ -118,7 +118,7 @@ extension ProjectLogServicesCoredata{
             throw ProjectLogErrorCD.UnexpectedSearchError
         }
     }
-    //----------------------------------------------
+    
     
     // Set Entity
     private func setLogEntity(with log: ProjectLog) throws {
@@ -138,7 +138,7 @@ extension ProjectLogServicesCoredata{
         entity.log_regist_at = log.registAt
         entity.log_deadline = deadlineString
     }
-    //----------------------------------------------
+    
     
     // Convert: to Dictionary
     private func convertToDict(with entity: ProjectLogEntity) throws -> [Int:Date] {
@@ -167,7 +167,7 @@ extension ProjectLogServicesCoredata{
         }
         return log
     }
-    //----------------------------------------------
+    
     
     // Update Check
     private func checkUpdate(from origin: ProjectLogEntity, with updated: ProjectLogUpdateDTO) throws -> Bool {
@@ -215,9 +215,9 @@ extension ProjectLogServicesCoredata{
     }
 }
 
-//===============================
+
 // MARK: - Exception
-//===============================
+
 enum ProjectLogErrorCD: LocalizedError {
     case UnexpectedFetchError
     case UnexpectedConvertError

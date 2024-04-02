@@ -11,9 +11,9 @@ import CoreData
 
 final class UserServicesCoredata{
     
-    //================================
+    
     // MARK: - Parameter
-    //================================
+    
     let util = Utilities()
     let cm = CoreDataManager.shared
     var context: NSManagedObjectContext {
@@ -21,14 +21,14 @@ final class UserServicesCoredata{
     }
 }
 
-//================================
+
 // MARK: - Main Function
-//================================
+
 extension UserServicesCoredata{
     
-    //--------------------
+    
     // Set
-    //--------------------
+    
     func setUser(with newUser: UserObject, and setDate: Date) throws {
         // Create Entity
         createEntity(with: newUser, and: setDate)
@@ -36,9 +36,9 @@ extension UserServicesCoredata{
         try context.save()
     }
     
-    //--------------------
+    
     // Get
-    //--------------------
+    
     func getUser(with userId: String) throws -> UserObject {
         // Fetch ENtity
         let entity = try fetchEntity(with: userId)
@@ -46,9 +46,9 @@ extension UserServicesCoredata{
         return try convertToUser(with: entity)
     }
     
-    //--------------------
+    
     // Update
-    //--------------------
+    
     func updateUser(with dto: UserUpdateDTO) throws {
         // Fetch Entity
         let entity = try fetchEntity(with: dto.userId)
@@ -58,9 +58,9 @@ extension UserServicesCoredata{
         }
     }
     
-    //--------------------
+    
     // Delete
-    //--------------------
+    
     func deleteUser(with userId: String) throws {
         // Fetch Entity
         let entity = try fetchEntity(with: userId)
@@ -70,9 +70,9 @@ extension UserServicesCoredata{
     }
 }
 
-//===============================
+
 // MARK: - Support Function
-//===============================
+
 extension UserServicesCoredata{
     
     // Fetch User Entity
@@ -131,9 +131,9 @@ extension UserServicesCoredata{
     }
 }
 
-//===============================
+
 // MARK: - Exception
-//===============================
+
 enum UserErrorCD: LocalizedError {
     case UnexpectedFetchError
     case UnexpectedConvertError

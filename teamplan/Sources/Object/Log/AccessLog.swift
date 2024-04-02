@@ -8,22 +8,22 @@
 
 import Foundation
 
-//============================
+
 // MARK: Entity
-//============================
+
 struct AccessLog{
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let log_id: Int
     let log_user_id: String
     var log_access: [Date]
     var log_upload_at: Date
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // Default
     init(){
         self.log_id = 0
@@ -75,9 +75,9 @@ struct AccessLog{
         self.log_upload_at = log_upload_at
     }
     
-    //--------------------
+    
     // Function
-    //--------------------
+    
     mutating func updateUploadAt(with newDate: Date) {
         self.log_upload_at = newDate
     }
@@ -95,23 +95,23 @@ struct AccessLog{
     }
 }
 
-//============================
+
 // MARK: Entity
-//============================
+
 struct AccessLogUpdateDTO{
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let userId: String
     let logId: Int
     
     var newAccessDate: Date?
     var newUploadAt: Date?
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     init(userId: String, logId: Int,
          newAccessDate: Date? = nil,
          newUploadAt: Date? = nil)

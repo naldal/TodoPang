@@ -10,9 +10,9 @@ import Foundation
 
 struct StatisticsObject{
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let stat_user_id: String
     let stat_term: Int
     let stat_drop: Int
@@ -27,9 +27,9 @@ struct StatisticsObject{
     let stat_log_head: [Int : Int]
     var stat_upload_at: Date
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // Signup
     init(userId: String, setDate: Date){
         self.stat_user_id = userId
@@ -120,9 +120,9 @@ struct StatisticsObject{
         self.stat_chlg_step = stat_chlg_step
     }
     
-    //--------------------
+    
     // function
-    //--------------------
+    
     func toDictionary() -> [String : Any] {
         let challengeStepString = stat_chlg_step
             .mapKeys { String($0) }

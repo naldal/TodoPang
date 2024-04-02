@@ -11,18 +11,18 @@ import GoogleSignIn
 import FirebaseAuth
 import KeychainSwift
 
-final class AuthGoogleServices{
+final class AuthGoogleService {
     
-    static let shared = AuthGoogleServices()
+    
+    // MARK: - private properties
+    
     private let util = Utilities()
     private let location = "AuthGoolgle"
     private var keychain = KeychainSwift()
-    init(){}
     
-    //====================
-    // MARK: Login
-    //====================
-    // login process
+    
+    // MARK: - methods
+
     @MainActor func login() async throws -> AuthSocialLoginResDTO {
         util.log(.info, location, "Initialize Google-Social-Login process", "LoginProcess")
         
@@ -46,21 +46,15 @@ final class AuthGoogleServices{
         return dto
     }
     
-    // firebase authentication
     private func firebaseAuth(loginResult: GIDSignInResult) async throws -> UserType {
-        // prepare credential
         let credential = GoogleAuthProvider.credential(
             withIDToken: loginResult.user.idToken!.tokenString,
             accessToken: loginResult.user.accessToken.tokenString
         )
-        // authentication
         let authResult = try await Auth.auth().signIn(with: credential)
         return authResult.additionalUserInfo?.isNewUser == true ? UserType.new : UserType.exist
     }
     
-    //====================
-    // MARK: Logout
-    //====================
     func logout() throws {
         try Auth.auth().signOut()
         keychain.delete("idToken")
@@ -70,11 +64,8 @@ final class AuthGoogleServices{
         userDefaultManager?.userName = ""
     }
     
-    //====================
-    // MARK: Support
-    //====================
     private func dataInspection(with dto: AuthSocialLoginResDTO) {
-        util.log(.info, location, "Initialize AuthDTO data inspection", dto.email)
+        util.log(.info, location, "Initialize AuthDTO data inspection", dto.email ?? "")
         let log = """
         * email: \(dto.email)
         * provider: \(dto.provider)
@@ -84,9 +75,8 @@ final class AuthGoogleServices{
     }
 }
 
-//====================
 // MARK: Exception
-//====================
+
 enum AuthGoogleError: LocalizedError {
     case UnexpectedTopViewControllerError
     

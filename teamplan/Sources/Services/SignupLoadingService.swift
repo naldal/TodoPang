@@ -10,9 +10,9 @@ import Foundation
 
 final class SignupLoadingService{
     
-    //================================
+    
     // MARK: - Properties
-    //================================
+    
     // for service
     private let util = Utilities()
     private let userFS = UserServicesFirestore()
@@ -31,9 +31,9 @@ final class SignupLoadingService{
     // for log
     private let location = "SignupLoading"
     
-    //===============================
+    
     // MARK: - Initializer
-    //===============================
+    
     /// `SignupLoadingService` 클래스의 인스턴스를 초기화합니다.
     ///
     /// 이 초기화 과정에서는 다음과 같은 작업이 수행됩니다:
@@ -53,10 +53,10 @@ final class SignupLoadingService{
     }
 }
 
-//===============================
+
 // MARK: - Main Executor
-//===============================
-extension SignupLoadingService{
+
+extension SignupLoadingService {
     
     /// 신규 사용자 가입과정의 메인 실행 함수입니다.
     /// - Returns: 가입이 완료된 사용자 정보를 담고 있는 `UserInfoDTO` 객체를 반환합니다.
@@ -96,9 +96,9 @@ extension SignupLoadingService{
     }
 }
 
-//===============================
+
 // MARK: - Support Executor
-//===============================
+
 extension SignupLoadingService{
     
     /// 로컬 디바이스에 신규 사용자 데이터를 저장하는 핵심 기능 함수입니다.
@@ -200,9 +200,9 @@ extension SignupLoadingService{
     }
 }
 
-//===============================
+
 // MARK: - User
-//===============================
+
 extension SignupLoadingService{
     
     // : Coredata
@@ -222,9 +222,9 @@ extension SignupLoadingService{
     }
 }
 
-//===============================
+
 // MARK: - Statisticcs
-//===============================
+
 extension SignupLoadingService{
     
     // : Coredata
@@ -244,9 +244,9 @@ extension SignupLoadingService{
     }
 }
 
-//===============================
+
 // MARK: - AccessLog
-//===============================
+
 extension SignupLoadingService{
     
     // : CoreData
@@ -266,9 +266,9 @@ extension SignupLoadingService{
     }
 }
 
-//===============================
+
 // MARK: - ChallengeLog
-//===============================
+
 extension SignupLoadingService{
     
     // : Coredata
@@ -288,9 +288,9 @@ extension SignupLoadingService{
     }
 }
 
-//===============================
+
 // MARK: - Challenge
-//===============================
+
 extension SignupLoadingService{
 
     // Sync: Server to Local
@@ -304,9 +304,9 @@ extension SignupLoadingService{
     }
 }
 
-//===============================
+
 // MARK: - Inspection
-//===============================
+
 extension SignupLoadingService{
     
     private func dataInspection(with profile: UserObject) {
@@ -323,9 +323,9 @@ extension SignupLoadingService{
     }
 }
 
-//===============================
+
 // MARK: - Exception
-//===============================
+
 enum SignupLoadingError: LocalizedError {
     case UnexpectedSignupError
     

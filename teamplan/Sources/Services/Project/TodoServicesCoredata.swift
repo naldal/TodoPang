@@ -11,9 +11,9 @@ import CoreData
 
 final class TodoServiceCoredata{
     
-    //===============================
+    
     // MARK: - Parameter
-    //===============================
+    
     let util = Utilities()
     let cm = CoreDataManager.shared
     var context: NSManagedObjectContext {
@@ -21,14 +21,14 @@ final class TodoServiceCoredata{
     }
 }
 
-//===============================
+
 // MARK: Main Function
-//===============================
+
 extension TodoServiceCoredata{
     
-    //--------------------
+    
     // Set
-    //--------------------
+    
     func setTodo(with dto: TodoSetDTO) throws -> TodoObject {
         // Create Entity
         let newTodoEntity = createEntity(with: dto.todoDesc, and: dto.todoId)
@@ -40,9 +40,9 @@ extension TodoServiceCoredata{
         return try convertToObject(with: newTodoEntity)
     }
     
-    //--------------------
+    
     // Get
-    //--------------------
+    
     // TodoList
     func getTodoList(with dto: TodoRequestDTO) throws -> [TodoObject] {
         // Fetch Entity
@@ -59,9 +59,9 @@ extension TodoServiceCoredata{
         return try convertToObject(with: entity)
     }
     
-    //--------------------
+    
     // Update
-    //--------------------
+    
     func updateTodo(with dto: TodoUpdateDTO) throws {
         // Ready to Update
         let entity = try fetchTodoEntity(
@@ -77,9 +77,9 @@ extension TodoServiceCoredata{
         }
     }
     
-    //--------------------
+    
     // Delete
-    //--------------------
+    
     func deleteTodo(with dto: TodoRequestDTO) throws {
         // Fetch Entity
         let todoEntity = try fetchTodoEntity(with: dto)
@@ -89,9 +89,9 @@ extension TodoServiceCoredata{
     }
 }
 
-//===============================
+
 // MARK: Support Function
-//===============================
+
 extension TodoServiceCoredata{
     
     // Fetch: Project Entity
@@ -183,9 +183,9 @@ extension TodoServiceCoredata{
     }
 }
 
-//===============================
+
 // MARK: - Exception
-//===============================
+
 enum TodoErrorCD: LocalizedError {
     case UnexpectedFetchError
     case UnexpectedConvertError

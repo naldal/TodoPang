@@ -8,14 +8,14 @@
 
 import Foundation
 
-//============================
+
 // MARK: MyChallenge
-//============================
+
 struct MyChallengeDTO: Hashable, Identifiable {
 
-    //--------------------
+    
     // content
-    //--------------------
+    
     let id = UUID().uuidString
     var challengeID: Int
     let type: ChallengeType
@@ -24,9 +24,9 @@ struct MyChallengeDTO: Hashable, Identifiable {
     let goal: Int
     let progress: Int
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     init(with object: ChallengeObject, and userProgress: Int){
         self.challengeID = object.chlg_id
         self.type = object.chlg_type
@@ -37,14 +37,14 @@ struct MyChallengeDTO: Hashable, Identifiable {
     }
 }
 
-//============================
+
 // MARK: Challenge
-//============================
+
 struct ChallengeDTO{
 
-    //--------------------
+    
     // content
-    //--------------------
+    
     // for index (essential)
     let id: Int
     let type: ChallengeType
@@ -69,9 +69,9 @@ struct ChallengeDTO{
     let setMyChallengeAt: Date?
     let disableMyChallengeAt: Date?
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // for index
     init(forIndex object: ChallengeObject){
         self.id = object.chlg_id
@@ -121,14 +121,14 @@ struct ChallengeDTO{
     }
 }
 
-//============================
+
 // MARK: Reward
-//============================
+
 struct ChallengeRewardDTO {
 
-    //--------------------
+    
     // content
-    //--------------------
+    
     let title: String
     let desc: String
     let type: ChallengeType
@@ -136,9 +136,9 @@ struct ChallengeRewardDTO {
     let setMyChallengeAt: Date
     let completeAt: Date
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     init(with object: ChallengeObject, and nextObject: ChallengeObject) {
         self.title = nextObject.chlg_title
         self.desc = nextObject.chlg_desc
@@ -149,14 +149,14 @@ struct ChallengeRewardDTO {
     }
 }
 
-//============================
+
 // MARK: Update
-//============================
+
 struct ChallengeUpdateDTO {
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let challengeId: Int
     let userId: String
     
@@ -167,9 +167,9 @@ struct ChallengeUpdateDTO {
     var newUnSelectedAt: Date?
     var newFinishedAt: Date?
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     init(challengeId: Int, userId: String,
          newSelected: Bool? = nil,
          newStatus: Bool? = nil,

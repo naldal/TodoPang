@@ -8,14 +8,14 @@
 
 import Foundation
 
-//============================
+
 // MARK: After Auth
-//============================
+
 struct UserInfoDTO{
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let userId: String
     let email: String
     let nickNname: String
@@ -23,9 +23,9 @@ struct UserInfoDTO{
     let status: UserStatus
     let updatedAt: Date
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // Default
     init(){
         self.userId = "Unknown"
@@ -46,53 +46,53 @@ struct UserInfoDTO{
     }
 }
 
-//============================
+
 // MARK: Signup
-//============================
+
 struct UserSignupDTO{
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let userId: String
     let email: String
     let provider: Providers
     var nickName: String
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     init(with userId: String, and dto: AuthSocialLoginResDTO) {
         self.userId = userId
-        self.email = dto.email
+        self.email = dto.email ?? ""
         self.provider = dto.provider
         self.nickName = ""
     }
-    //--------------------
+    
     // function
-    //--------------------
+    
     mutating func updateNickName(with newVal: String){
         self.nickName = newVal
     }
 }
 
-//============================
+
 // MARK: Update
-//============================
+
 struct UserUpdateDTO{
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let userId: String
     var newEmail: String?
     var newNickName: String?
     var newUpdateAt: Date?
     var newLoginAt: Date?
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     init(userId: String, 
          newEmail: String? = nil,
          newNickName: String? = nil,

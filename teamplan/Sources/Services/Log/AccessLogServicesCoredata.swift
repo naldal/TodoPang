@@ -11,9 +11,9 @@ import CoreData
 
 final class AccessLogServicesCoredata{
     
-    //================================
+    
     // MARK: - Parameter
-    //================================
+    
     let util = Utilities()
     let cd = CoreDataManager.shared
     var context: NSManagedObjectContext {
@@ -21,22 +21,22 @@ final class AccessLogServicesCoredata{
     }
 }
 
-//================================
+
 // MARK: - Main Function
-//================================
+
 extension AccessLogServicesCoredata{
     
-    //--------------------
+    
     // Set
-    //--------------------
+    
     func setLog(with log: AccessLog) throws {
         try setEntity(with: log)
         try context.save()
     }
     
-    //--------------------
+    
     // Get
-    //--------------------
+    
     // Single
     func getLog(with userId: String, and logId: Int) throws -> AccessLog {
         // fetch entity
@@ -52,9 +52,9 @@ extension AccessLogServicesCoredata{
         return try entities.map { try convertToLog(with: $0) }
     }
     
-    //--------------------
+    
     // Update
-    //--------------------
+    
     func updateLog(with dto: AccessLogUpdateDTO) throws {
         // fetch entity
         let entity = try fetchEntity(with: dto.userId, and: dto.logId)
@@ -64,9 +64,9 @@ extension AccessLogServicesCoredata{
         }
     }
     
-    //--------------------
+    
     // Delete
-    //--------------------
+    
     // Single
     func deleteLog(with userId: String, and logId: Int) throws {
         // fetch entity
@@ -85,9 +85,9 @@ extension AccessLogServicesCoredata{
     }
 }
 
-//================================
+
 // MARK: - Support Function
-//================================
+
 extension AccessLogServicesCoredata{
     
     // Set
@@ -100,7 +100,7 @@ extension AccessLogServicesCoredata{
         entity.log_access = log_access_string
         entity.log_upload_at = log.log_upload_at
     }
-    //----------------------------------------------
+    
     
     // Fetch
     private func fetchEntity(with userId: String, and logId: Int) throws -> AccessLogEntity {
@@ -125,7 +125,7 @@ extension AccessLogServicesCoredata{
         // fetch & return
         return try context.fetch(fetchReq)
     }
-    //----------------------------------------------
+    
     
     // Convert: to Object
     private func convertToLog(with entity: AccessLogEntity) throws -> AccessLog {
@@ -141,7 +141,7 @@ extension AccessLogServicesCoredata{
         }
         return log
     }
-    //----------------------------------------------
+    
     
     // Update: Check
     private func checkUpdate(from entity: AccessLogEntity, with dto: AccessLogUpdateDTO) throws -> Bool {
@@ -170,9 +170,9 @@ extension AccessLogServicesCoredata{
     }
 }
 
-//===============================
+
 // MARK: - Exception
-//===============================
+
 enum AccessLogErrorCD: LocalizedError {
     case UnexpectedConvertError
     case UnexpectedFetchError

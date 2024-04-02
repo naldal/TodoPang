@@ -8,22 +8,22 @@
 
 import Foundation
 
-//============================
+
 // MARK: Set
-//============================
+
 struct TodoSetDTO{
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let todoId: Int
     let projectId: Int
     let userId: String
     let todoDesc: String
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     init(projectId: Int, todoId: Int, userId: String, desc: String){
         self.projectId = projectId
         self.todoId = todoId
@@ -32,22 +32,22 @@ struct TodoSetDTO{
     }
 }
 
-//============================
+
 // MARK: Get & Delete
-//============================
+
 /// Page Service => Storage Service
 struct TodoRequestDTO{
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let projectId: Int
     let userId: String
     var todoId: Int?
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     init(projectId: Int, userId: String,
          todoId: Int? = nil
     ){
@@ -57,14 +57,14 @@ struct TodoRequestDTO{
     }
 }
 
-//============================
+
 // MARK: Update - Project
-//============================
+
 struct TodoUpdateDTO{
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let projectId: Int
     let todoId: Int
     let userId: String
@@ -77,9 +77,9 @@ struct TodoUpdateDTO{
     var changedAt: Date?
     var updatedAt: Date?
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // ProjectDetail: Update Desc
     init(projectId: Int, todoId: Int, userId: String,
          newDesc: String? = nil,
@@ -104,23 +104,23 @@ struct TodoUpdateDTO{
 
 
 
-//============================
+
 // MARK: toViewModel
-//============================
+
 struct TodoListDTO{
     
-    //--------------------
+    
     // Content
-    //--------------------
+    
     let todoId: Int
     let desc: String
 
     let pinned: Bool
     let status: Bool
     
-    //--------------------
+    
     // Constructor
-    //--------------------
+    
     init(with object: TodoObject){
         self.todoId = object.todo_id
         self.desc = object.todo_desc

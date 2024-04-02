@@ -10,27 +10,27 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-//================================
+
 // MARK: - Main Function
-//================================
+
 final class ChallengeLogServicesFirestore{
     
-    //--------------------
+    
     // Parameter
-    //--------------------
+    
     let fs = Firestore.firestore()
     
-    //--------------------
+    
     // Set
-    //--------------------
+    
     func setLog(with log: ChallengeLog) async throws {
         let collectionRef = fs.collection("ChallengeLog")
         try await collectionRef.addDocument(data: log.toDictionary())
     }
     
-    //--------------------
+    
     // Get
-    //--------------------
+    
     // Single
     func getLog(with userId: String, and logId: Int) async throws -> ChallengeLog {
         // fetch doc
@@ -49,9 +49,9 @@ final class ChallengeLogServicesFirestore{
         }
     }
     
-    //--------------------
+    
     // Update
-    //--------------------
+    
     func updateLog(with updated: ChallengeLog) async throws {
         // fetch doc
         let docs = try await fetchDocument(with: updated.log_user_id, and: updated.log_id)
@@ -59,9 +59,9 @@ final class ChallengeLogServicesFirestore{
         try await docs.reference.updateData(updated.toDictionary())
     }
     
-    //--------------------
+    
     // Delete
-    //--------------------
+    
     // Single
     func deleteLog(with userId: String, and logId: Int) async throws {
         // fetch doc
@@ -81,9 +81,9 @@ final class ChallengeLogServicesFirestore{
     }
 }
 
-//================================
+
 // MARK: - Support Function
-//================================
+
 extension ChallengeLogServicesFirestore{
     
     // Fetch Collection
@@ -124,9 +124,9 @@ extension ChallengeLogServicesFirestore{
     }
 }
 
-//================================
+
 // MARK: - Exception
-//================================
+
 enum ChallengeLogErrorFS: LocalizedError {
     case UnexpectedFetchError
     case UnexpectedConvertError

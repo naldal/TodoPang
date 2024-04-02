@@ -8,15 +8,15 @@
 
 import Foundation
 
-//============================
+
 // MARK: Info
-//============================
+
 // ProjectDetailService
 struct ProjectDetailDTO{
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let userId: String
     let projectId: Int
     let title: String
@@ -31,9 +31,9 @@ struct ProjectDetailDTO{
     let todoLimit: Int
     var todoList: [TodoListDTO] = []
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // Default
     init(){
         self.userId = ""
@@ -66,9 +66,9 @@ struct ProjectDetailDTO{
         self.todoLimit = limit
     }
     
-    //--------------------
+    
     // function
-    //--------------------
+    
     mutating func updateProjectComplete(with newStatus: Bool){
         self.complete = newStatus
     }
@@ -92,22 +92,22 @@ struct ProjectDetailDTO{
     }
 }
 
-//============================
+
 // MARK: Set
-//============================
+
 // ProjectIndexService
 struct ProjectSetDTO{
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let title: String
     let startedAt: Date
     let deadline: Date
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     init(title: String, startedAt: Date, deadline: Date) {
         self.title = title
         self.startedAt = startedAt
@@ -115,15 +115,15 @@ struct ProjectSetDTO{
     }
 }
 
-//============================
+
 // MARK: Update
-//============================
+
 // ProjectCoredataService
 struct ProjectUpdateDTO{
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let userId: String
     let projectId: Int
     let newTitle: String?
@@ -133,9 +133,9 @@ struct ProjectUpdateDTO{
     let newTodoRegist: Int?
     let newTodoFinish: Int?
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // ProjectIndex
     init(userId: String, projectId: Int,
          newTitle: String? = nil,
@@ -156,14 +156,14 @@ struct ProjectUpdateDTO{
     }
 }
 
-//============================
+
 // MARK: Card for ViewModel
-//============================
+
 struct ProjectCardDTO{
     
-    //--------------------
+    
     // content
-    //--------------------
+    
     let title: String
     let startedAt: Date
     let deadline: Date
@@ -171,9 +171,9 @@ struct ProjectCardDTO{
     let registedTodo: Int
     let finishedTodo: Int
     
-    //--------------------
+    
     // constructor
-    //--------------------
+    
     // Coredata
     init?(entity: ProjectEntity){
         guard let title = entity.proj_title,

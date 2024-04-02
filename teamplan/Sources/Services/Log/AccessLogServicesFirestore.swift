@@ -10,19 +10,19 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-//================================
+
 // MARK: - Main Function
-//================================
+
 final class AccessLogServicesFirestore{
 
-    //--------------------
+    
     // Parameter
-    //--------------------
+    
     let fs = Firestore.firestore()
     
-    //--------------------
+    
     // Set
-    //--------------------
+    
     func setLog(with log: AccessLog) async throws {
         
         // Search & Set Data
@@ -30,9 +30,9 @@ final class AccessLogServicesFirestore{
         try await collectionRef.addDocument(data: log.toDictionary())
     }
     
-    //--------------------
+    
     // Get
-    //--------------------
+    
     // Single
     func getLog(with userId: String, and logId: Int) async throws -> AccessLog {
         // Fetch Document
@@ -51,9 +51,9 @@ final class AccessLogServicesFirestore{
         }
     }
     
-    //--------------------
+    
     // Update
-    //--------------------
+    
     func updateLog(to updated: AccessLog) async throws {
         // Fetch Document
         let docs = try await fetchDocument(with: updated.log_user_id, and: updated.log_id)
@@ -61,9 +61,9 @@ final class AccessLogServicesFirestore{
         try await docs.reference.updateData(updated.toDictionary())
     }
     
-    //--------------------
+    
     // Delete
-    //--------------------
+    
     // Single
     func deleteLog(with userId: String, and logId: Int) async throws {
         // Fetch Document
@@ -83,9 +83,9 @@ final class AccessLogServicesFirestore{
     }
 }
 
-//================================
+
 // MARK: - Main Function
-//================================
+
 extension AccessLogServicesFirestore {
     
     // fetch collection
@@ -127,9 +127,9 @@ extension AccessLogServicesFirestore {
 }
 
 
-//================================
+
 // MARK: - Exception
-//================================
+
 enum AccessLogErrorFS: LocalizedError {
     case UnexpectedFetchError
     case UnexpectedConvertError

@@ -10,9 +10,9 @@ import Foundation
 
 final class SyncLocaltoServer{
     
-    //================================
+    
     // MARK: - Properties
-    //================================
+    
     // for service
     private let util = Utilities()
     private let userFS = UserServicesFirestore()
@@ -36,9 +36,9 @@ final class SyncLocaltoServer{
     private let location = "SyncLocaltoServer"
 }
 
-//===============================
+
 // MARK: - Main Function
-//===============================
+
 extension SyncLocaltoServer{
     
     func syncExecutor(with syncDate: Date, by userId: String) async throws {
@@ -113,9 +113,9 @@ extension SyncLocaltoServer{
     }
 }
 
-//===============================
+
 // MARK: - SP1: Fetch Server Data
-//===============================
+
 extension SyncLocaltoServer{
     
     // User
@@ -146,9 +146,9 @@ extension SyncLocaltoServer{
     }
 }
 
-//===============================
+
 // MARK: - SP2: Apply Server To Local
-//===============================
+
 extension SyncLocaltoServer{
     
     // User
@@ -196,14 +196,14 @@ extension SyncLocaltoServer{
     }
 }
 
-//===============================
+
 // MARK: - Restore Challenge
-//===============================
+
 extension SyncLocaltoServer{
     
-    //-------------------------------
+    
     // Executor
-    //-------------------------------
+    
     private func restoreExecutor(stat: StatisticsObject, challengeLog: [Int:Date], challengeList: [ChallengeObject]) throws {
         util.log(.info, location, "Proceed challenge resotre process, target: \(challengeLog.count)", userId)
         
@@ -216,9 +216,9 @@ extension SyncLocaltoServer{
         util.log(.info, location, "Restore Complete: \n* Applied ChallengeStep: \(challengeStep)", userId)
     }
     
-    //-------------------------------
+    
     // Restore: target challenge
-    //-------------------------------
+    
     private func restoreTargetChallenge(challengeList: [ChallengeObject], challengeId: Int, finishDate: Date) throws -> ChallengeObject {
         // fetch target cahllenge
         guard let challenge = challengeList.first(where: { $0.chlg_id == challengeId }) else {
@@ -232,9 +232,9 @@ extension SyncLocaltoServer{
         return challenge
     }
     
-    //-------------------------------
+    
     // Restore: next challenge
-    //-------------------------------
+    
     private func restoreNextChallenge(challengeList: [ChallengeObject], challenge: ChallengeObject) throws {
         // fetch next challenge
         guard let prevChallenge = challengeList.first(where: {
@@ -248,9 +248,9 @@ extension SyncLocaltoServer{
         util.log(.info, location, "Restored Next Challenge Complete: restored challengeID = \(prevChallenge.chlg_id)", userId)
     }
     
-    //-------------------------------
+    
     // Restore: support
-    //-------------------------------
+    
     // update: challenge step
     private func updateChallengeStep(type: ChallengeType, step: Int) {
         self.challengeStep[type.rawValue] = step + 1
@@ -286,9 +286,9 @@ extension SyncLocaltoServer{
     }
 }
 
-//================================
+
 // MARK: - Exception
-//================================
+
 enum SyncLocalError: LocalizedError {
     case UnexpectedChallengeProgressRestoreError
     
