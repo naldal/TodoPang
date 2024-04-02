@@ -14,35 +14,38 @@ import GoogleSignIn
 struct AuthSocialLoginResDTO {
     
     
-    // content
+    // MARK: - properties
     
-    let email: String
+    let email: String?
     let provider: Providers
     
-    let idToken: String
+    let idToken: String?
     let accessToken: String
     var status: UserType
     
     
-    // constructor
+    // MARK: - life cycle
+
+    // MARK: Google
     
-    // Google
-    init(loginResult: GIDSignInResult, userType: UserType){
+    init(loginResult: GIDSignInResult, userType: UserType) {
         self.provider = .google
-        self.email = loginResult.user.profile!.email
-        self.idToken = loginResult.user.idToken!.tokenString
+        self.email = loginResult.user.profile?.email
+        self.idToken = loginResult.user.idToken?.tokenString
         self.accessToken = loginResult.user.accessToken.tokenString
         self.status = userType
     }
     
-    // Apple
-    init(loginResult: User, idToken: String, userType: UserType){
+    // MARK: Apple
+    
+    init(loginResult: User?, idToken: String, userType: UserType) {
         self.provider = .apple
-        self.email = loginResult.email!
+        self.email = loginResult?.email
         self.idToken = idToken
         self.accessToken = ""
         self.status = userType
     }
+    
 }
 
 

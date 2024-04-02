@@ -12,6 +12,8 @@ import AuthenticationServices
 
 final class AuthAppleService {
     
+    
+    
     // MARK: - method
     
     func randomNonce(length: Int = 32) -> String {
@@ -44,6 +46,22 @@ final class AuthAppleService {
         }
 
         return resultNonce
+    }
+    
+    func login(credential: OAuthCredential, idToken: String, completion: @escaping (Result<AuthSocialLoginResDTO, SignupError>) -> Void) {
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            if let error = error {
+                completion(.failure(.invalidUser))
+                return
+            }
+            
+            guard let user = authResult?.user else {
+                completion(.success(.init(loginResult: nil, idToken: idToken, userType: .new)))
+                return
+            }
+            
+            completion(.success(.init(loginResult: user, idToken: idToken, userType: .exist)))
+        }
     }
 
 }

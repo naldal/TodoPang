@@ -64,7 +64,7 @@ struct UserSignupDTO{
     
     init(with userId: String, and dto: AuthSocialLoginResDTO) {
         self.userId = userId
-        self.email = dto.email
+        self.email = dto.email ?? ""
         self.provider = dto.provider
         self.nickName = ""
     }

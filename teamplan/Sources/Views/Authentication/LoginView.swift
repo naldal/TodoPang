@@ -70,17 +70,13 @@ struct LoginView: View {
     
     private var buttons: some View {
         VStack(spacing: 18) {
-            
             SignInWithAppleButton(
-                onRequest: {
-                    request in
-                    self.authViewModel.requestNonceSignInApple()
+                onRequest: { request in
                     request.requestedScopes = [.fullName, .email]
-                    request.nonce = HashSHA256().hash(self.authViewModel.rawNonce)
                 },
                 onCompletion: { result in
                     switch result {
-                    case .success(let authResults): // viewModel에서 처리
+                    case .success(let authResults):
                         switch authResults.credential {
                         case let appleIDCredential as ASAuthorizationAppleIDCredential:
                             guard let appleIDToken = appleIDCredential.identityToken else {
@@ -91,19 +87,7 @@ struct LoginView: View {
                                 print("\(appleIDToken.debugDescription)")
                                 return
                             }
-                            let credential = OAuthProvider.credential(
-                                withProviderID: "apple.com",
-                                idToken: idTokenString,
-                                rawNonce: self.authViewModel.rawNonce
-                            )
-                            Auth.auth().signIn(with: credential) { (authResult, error) in
-                                if let error = error {
-                                    print("\(error.localizedDescription)")
-                                    return
-                                }
-                                print("Apple Login Successful.")
-                                showHomeView = true
-                            }
+                            self.authViewModel.signInApple(idToken: idTokenString)
                         default:
                             break
                         }
@@ -112,6 +96,20 @@ struct LoginView: View {
                     }
                 }
             )
+            .onAppear(perform: {
+                self.authViewModel.requestRandomNonce()
+            })
+            .onChange(of: self.authViewModel.appleLoginStatus) { appleLoginStatus in
+                guard let status = appleLoginStatus else {
+                    return
+                }
+                switch status {
+                case .exist:
+                    self.mainViewState = .main
+                case .new:
+                    self.mainViewState = .signup
+                }
+            }
             .padding(.horizontal)
             .frame(height: 48)
             .frame(maxWidth: .infinity)

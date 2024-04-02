@@ -65,7 +65,7 @@ final class AuthGoogleService {
     }
     
     private func dataInspection(with dto: AuthSocialLoginResDTO) {
-        util.log(.info, location, "Initialize AuthDTO data inspection", dto.email)
+        util.log(.info, location, "Initialize AuthDTO data inspection", dto.email ?? "")
         let log = """
         * email: \(dto.email)
         * provider: \(dto.provider)

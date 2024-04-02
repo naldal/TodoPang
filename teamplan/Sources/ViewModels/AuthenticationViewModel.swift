@@ -8,7 +8,14 @@
 
 import Foundation
 import KeychainSwift
+import FirebaseAuth
 import AuthenticationServices
+
+enum SignupError: Error {
+    case invalidUser
+    case invalidAccountInfo
+    case signupFailed
+}
 
 final class AuthenticationViewModel: ObservableObject {
     
@@ -16,13 +23,7 @@ final class AuthenticationViewModel: ObservableObject {
         case signedIn
         case signedOut
     }
-    
-    enum SignupError: Error {
-        case invalidUser
-        case invalidAccountInfo
-        case signupFailed
-    }
-    
+
     enum loginAction: Equatable {
         case loginGoogle
         case loginApple
@@ -35,7 +36,8 @@ final class AuthenticationViewModel: ObservableObject {
     @Published var signupUser: AuthSocialLoginResDTO?
     @Published var rawNonce: String?
     @Published var hashedNonce: String?
-    
+    @Published var error: SignupError? // 에러타입 준수하는 어떤 것을 만들어서 값이 변경될 때마다 알럿 띄워줘야함. 지금은 아무거나(SignupError) 박아놓음
+    @Published var appleLoginStatus: UserType?
     
     // MARK: - private properties
     
@@ -56,13 +58,17 @@ final class AuthenticationViewModel: ObservableObject {
         do {
             let user = try await loginService.loginGoogle()
             
-            switch user.status { // ???
-            case .exist: // ???
-                self.signupUser = user // ???
-            case .new: // ???
-                self.signupUser = user // ???
-            } // ???
-            self.keychain.set(user.idToken, forKey: "idToken")
+            switch user.status {
+            case .exist:
+                self.signupUser = user
+            case .new:
+                self.signupUser = user
+            }
+            
+            guard let idToken = user.idToken else {
+                throw SignupError.invalidAccountInfo
+            }
+            self.keychain.set(idToken, forKey: "idToken")
             self.keychain.set(user.accessToken, forKey: "accessToken")
             
             return user
@@ -72,8 +78,24 @@ final class AuthenticationViewModel: ObservableObject {
         }
     }
     
-    func requestNonceSignInApple() {
-        self.rawNonce = self.loginService.requestRawNonceSignInApple()
+    func signInApple(providerID: String = "apple.com", idToken: String) {
+        let credential: OAuthCredential = {
+            return OAuthProvider.credential(withProviderID: providerID, idToken: idToken, rawNonce: self.rawNonce)
+        }()
+        self.loginService.loginApple(credential: credential, idToken: idToken) { [weak self] loginResult in
+            DispatchQueue.main.async {
+                switch loginResult {
+                case .success(let response):
+                    self?.appleLoginStatus = response.status
+                case .failure(let error):
+                    self?.error = error
+                }
+            }
+        }
+    }
+    
+    func requestRandomNonce() {
+        self.rawNonce = self.loginService.requestRandomNonce()
     }
     
     func tryLogin() async -> Bool {
@@ -120,3 +142,4 @@ final class AuthenticationViewModel: ObservableObject {
         return signedUser
     }
 }
+
